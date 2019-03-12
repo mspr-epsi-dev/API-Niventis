@@ -1,0 +1,29 @@
+version: '3'
+
+services: 
+  app:
+    depends_on: 
+      - mongo 
+    environment:
+      WAIT_HOSTS: mongo:27017
+    container_name: raw-data-mongo-api
+    restart: always
+    build: .
+    ports: 
+      - '80:3000'
+    networks:
+      - raw-data
+
+  mongo: 
+    image: mongo
+    container_name: raw-data-mongo-database
+    ports:
+      - '27017:27017'
+    volumes:
+      - /data/db/raw-data:/data/raw-data
+    networks:
+      - raw-data
+
+networks:
+  raw-data:
+    external: true

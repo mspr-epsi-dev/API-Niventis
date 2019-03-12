@@ -1,0 +1,13 @@
+{
+    "name": "Pharmacie du petit village",
+    "adress": {
+        "nbr": 45,
+        "rue": "rue des lillas",
+        "codepostal": 34200
+    },
+    "lattitude": "String",
+    "longitude": "String",
+    "turnover": "String",
+    "trainingNeed": "String"
+
+}
