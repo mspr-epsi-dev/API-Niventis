@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
+const PharmacieModel = require('../../models/pharmacieModel');
 
-router.get('/hello', (req, res) => {
+router.post('/savePharmacie', (req, res) => {
 
-    res.send("hello");
+    var pharmacie = new PharmacieModel(res.body);
+    pharmacie.save();
 
 });
 

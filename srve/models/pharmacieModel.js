@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const pharmacie = new Schema({
+const pharmacieSchema = new Schema({
 
     name: String,
     adress: {
-        nb:Number,
+        nbr:Number,
         rue: String,
         codepostal: Number
     },
@@ -16,6 +16,6 @@ const pharmacie = new Schema({
 
  });
 
-const pharmacie = mongoose.model('pharmacie', pharmacie);
+const pharmacie = mongoose.model('pharmacie', pharmacieSchema);
 
 module.exports = pharmacie;
