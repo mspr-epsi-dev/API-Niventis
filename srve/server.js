@@ -1,11 +1,12 @@
 const express = require('express');
 const database = require('./controller/databaseController');
 const router = require('./routes/router');
+const bodyParser = require('body-parser');
 
 const app =  express();
-const port = 3000
+const port = 3000;
 
-app.use(require('body-parser').json());
+app.use(bodyParser.json());
 
 app.use("/", router);
 

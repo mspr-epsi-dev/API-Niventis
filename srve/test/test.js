@@ -10,45 +10,12 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 const should = chai.should();
 
-describe("HELLO /getData/hello", () => {
-
-    it("should reponse hello", (done) => {
-
-        chai.request(app)
-            .get('/getData/hello')
-            .end((err, res, body) => {
-
-                if(err){
-                    done(err);
-                }else {
-                    
-                    var expected = { hello: 'hello' };
-                    var response = res.body
-    
-                    response.should.be.a('object');
-                    expect(response).to.deep.equal(expected);
-    
-                    done();
-
-                }
-
-            });
-    });
-
-});
 
 describe("get from database", () => {
 
-    before('connect to database', () => {
-        return database.connect();
-    });
-
-
-    beforeEach( () => {
-
-        var pharmacie = new PharmacieModel(pharmacieMockup);
-        return pharmacie.save();
-
+    before('get from database', () => {
+         var pharmacie = new PharmacieModel(pharmacieMockup);
+         pharmacie.save();
     });
 
     it("get one entity", (done) => {
@@ -58,16 +25,20 @@ describe("get from database", () => {
             .end((err, res, body) => {
 
                 if(err){
-                    done(err)
+
+                    done(err);
+
                 }else{
 
                     var response = res.body;                    
                     var expected = [pharmacieMockup];                    
 
                     response.should.be.a('array');
+                    
                     expect(response[0]).to.deep.include(expected[0]);
 
                     done();
+
 
                 }
 
@@ -77,8 +48,52 @@ describe("get from database", () => {
 
     after(() => {
 
-        return PharmacieModel.deleteMany({});
+        PharmacieModel.deleteMany({});
 
     });
+
+});
+
+describe('save to database', () => {
+
+    it('save one to database', (done) => {
+
+        chai.request(app)
+        .post('saveData/savePharmacie')
+        .send(pharmacieMockup)
+        .end((err, resp,  body) => {
+
+            if(err){
+
+                console.log("error : " + err);
+
+                done(err);
+
+            }else{
+
+                var response = res.body;     
+                console.log("response : " + response);               
+                var expected = [pharmacieMockup];                    
+
+                response.should.be.a('array');
+                expect(response[0]).to.deep.include(expected[0]);
+
+                done();
+
+
+            }
+            
+        });
+        
+
+    });
+
+    after((done) => {
+
+        PharmacieModel.deleteMany({});
+        done();
+
+    });
+
 
 });

@@ -12,7 +12,16 @@ router.get('/hello', (req, res) => {
 router.get('/getPharmacie', (req, res) => {
     
     Pharmacie.find({}, (error, docs) => {
-        res.send(docs);
+        if(error){
+            res.status(500);
+            res.json(error);
+            res.end();
+        }else{
+            res.status(200);
+            res.json(docs);
+            res.end();
+        }
+
     })
 
 
