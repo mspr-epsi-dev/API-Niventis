@@ -1,13 +1,27 @@
 {
+    
     "name": "Pharmacie du petit village",
     "adress": {
-        "nbr": 45,
-        "rue": "rue des lillas",
-        "codepostal": 34200
+        "nbr": 6,
+        "street": "Place de la République",
+        "zipCode": 34200,
+        "city": "Paulhan"
     },
-    "lattitude": "String",
-    "longitude": "String",
-    "turnover": "String",
-    "trainingNeed": "String"
+    "lattitude": 43.54062,
+    "longitude": 3.45958,
+    "turnover": 150000,
+    "trainingNeed": "technique de vente",
+    "productBought" : [
+        {
+            "productName": "efferalgans",
+            "quantityBoughtPerMonth": 200,
+            "productPrice": 25
+        },
+        {
+            "productName": "daffalgans",
+            "quantityBoughtPerMonth": 165,
+            "productPrice": 32
+        }
+    ]
 
 }

@@ -14,6 +14,7 @@ const should = chai.should();
 describe("get from database", () => {
 
     before('get from database', () => {
+        PharmacieModel.deleteMany();
          var pharmacie = new PharmacieModel(pharmacieMockup);
          pharmacie.save();
     });

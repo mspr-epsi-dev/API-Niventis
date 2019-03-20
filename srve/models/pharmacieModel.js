@@ -1,21 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Product = require('./productModel');
 
 const pharmacieSchema = new Schema({
 
     name: String,
     adress: {
         nbr:Number,
-        rue: String,
-        codepostal: Number
+        street: String,
+        zipCode: Number,
+        city: String
     },
-    lattitude: String,
-    longitude: String,
-    turnover: String,
-    trainingNeed: String
+    lattitude: Number,
+    longitude: Number,
+    turnover: Number,
+    trainingNeed: String,
+    productBought: [Product]
 
  });
 
-const pharmacie = mongoose.model('pharmacie', pharmacieSchema);
+const Pharmacie = mongoose.model('pharmacie', pharmacieSchema);
 
-module.exports = pharmacie;
+module.exports = Pharmacie;
