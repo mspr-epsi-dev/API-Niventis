@@ -6,7 +6,7 @@ services:
       - mongo 
     environment:
       WAIT_HOSTS: mongo:27017
-    container_name: raw-data-mongo-api
+    container_name: mspr-srve-api
     restart: always
     build: .
     ports: 
@@ -16,13 +16,13 @@ services:
 
   mongo: 
     image: mongo
-    container_name: raw-data-mongo-database
+    container_name: mspr-srve-api-database
     ports:
       - '27017:27017'
     volumes:
       - /data/db/raw-data:/data/raw-data
     networks:
-      - raw-data
+      - mspr-srve
 
 networks:
   raw-data:
