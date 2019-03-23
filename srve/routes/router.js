@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const saveData = require("./saveData/saveData");
-const getData = require("./getData/getData");
+const pharmacieRoute = require("./pharmacieRoute");
 
-router.use("/saveData", saveData);
-router.use("/getData", getData);
+router.use("/pharmacie", pharmacieRoute);
 
 
 module.exports = router;
