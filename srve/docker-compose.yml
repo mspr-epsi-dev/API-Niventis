@@ -25,5 +25,5 @@ services:
       - mspr-srve
 
 networks:
-  raw-data:
+  mspr-srve:
     external: true
