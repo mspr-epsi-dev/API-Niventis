@@ -34,9 +34,21 @@ router.get(route.getAllPharmacies, (req, res) => {
     
     Pharmacie.find({}, (error, doc) => {
         if(error){
+
             res.status(500, {"Content-Type": "application/json"}).send(err);
+
         }else{
-            res.status(200, {"Content-Type": "application/json"}).send(doc);
+            
+            if(doc){
+                
+                res.status(200, {"Content-Type": "application/json"}).send(doc);
+                
+            }else{
+
+                var msg = "No pharmacie found";
+                res.status(404, {"Content-Type": "application/json"}).send(msg);
+
+            }
         }
 
     })
@@ -54,13 +66,40 @@ router.get(route.getPharmacieById, (req, res) => {
 
         }else{
 
-            res.status(200, {"Content-Type": "application/json"}).send(doc);
+            if(doc){
+
+                res.status(200, {"Content-Type": "application/json"}).send(doc);
+
+            }else{
+
+                var msg = "No pharmacie found";
+                res.status(404, {"Content-Type": "application/json"}).send(msg);
+
+            }
 
         }
 
     });
 
 });
+
+router.put(route.updatePharmacie, (req, res) => {
+
+    Pharmacie.findOneAndUpdate(req.query.id, (err, doc) => {
+
+        if(err){
+
+            res.status(500, {"Content-Type": "application/json"}).send(err);
+
+        }else{
+
+            res.status(200, {"Content-Type": "application/json"}).send(doc);
+
+        }
+
+    });
+
+})
 
 router.delete(route.deletePharmacie, (req,res) => {
    

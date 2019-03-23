@@ -1,9 +1,8 @@
 const chaiHttp = require ('chai-http');
 const app = require ('../server');
 const pharmacieMockup = require('./pharmacieMockup.json');
-const mongoose = require('mongoose');
-const database = require('../controller/databaseController');
 const PharmacieModel = require('../models/pharmacieModel');
+const routes = require('../routes/pharmacieRoutes');
 
 const chai = require('chai');
 const expect = chai.expect;
@@ -19,10 +18,10 @@ describe("get from database", () => {
          pharmacie.save();
     });
 
-    it("get one entity", (done) => {
+    it("get all pharmacies", (done) => {
 
         chai.request(app)
-            .get('/getData/getPharmacie')
+            .get( routes.baseUrl + routes.getAllPharmacies)
             .end((err, res, body) => {
 
                 if(err){
@@ -30,13 +29,13 @@ describe("get from database", () => {
                     done(err);
 
                 }else{
-
+                    
                     var response = res.body;                    
                     var expected = [pharmacieMockup];                    
 
                     response.should.be.a('array');
                     
-                    expect(response[0]).to.deep.include(expected[0]);
+                    expect(response[0]).to.include(expected[0]);
 
                     done();
 
@@ -60,7 +59,7 @@ describe('save to database', () => {
     it('save one to database', (done) => {
 
         chai.request(app)
-        .post('saveData/savePharmacie')
+        .post(routes.baseUrl + routes.savePharmacie)
         .send(pharmacieMockup)
         .end((err, resp,  body) => {
 
