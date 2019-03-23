@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const pharmacieRoute = require("./pharmacieRoute");
+const pharmacieRouter = require("./pharmacieRouter");
 
-router.use("/pharmacie", pharmacieRoute);
+router.use("/pharmacie", pharmacieRouter);
 
 
 module.exports = router;
