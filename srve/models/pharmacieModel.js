@@ -4,7 +4,7 @@ const Product = require('./productModel');
 
 const pharmacieSchema = new Schema({
 
-    name: String,
+    name: {type : String, required: true},
     adress: {
         nbr:Number,
         street: String,

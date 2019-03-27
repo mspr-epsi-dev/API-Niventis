@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const Pharmacie = require('../models/pharmacieModel');
-const route = require('./pharmacieRoutes');
+const route = require('./routeProperties');
 
 router.get(route.hello, (req, res) => {
     
@@ -12,21 +12,34 @@ router.get(route.hello, (req, res) => {
 
 router.post(route.savePharmacie, (req, res) => {
 
-    var pharmacie = new Pharmacie(req.body);
+    try {
+        
+        var pharmacie = new Pharmacie(req.body);
     
-    pharmacie.save((err, doc) => {
+        pharmacie.save((err, doc) => {
+    
+            if(err){
+    
+                if(err.name){
+                    
+                    res.status(400, {"Content-Type": "application/json"}).send({message :"the ressource you sent is incorrectly formed"});
+                    
+                }
+                
+    
+            }else{
+    
+                res.status(200, {"Content-Type": "application/json"}).send({message : "Pharmacie successfuly added !", doc});
+    
+            }
+    
+        });
 
-        if(err){
+    } catch (error) {
+        
+        res.status(500, {"Content-Type": "application/json"}).send({message : "something wen wrong on our side... sorry duuuuude", error});
 
-            res.status(500, {"Content-Type": "application/json"}).send(err);
-
-        }else{
-
-            res.status(200, {"Content-Type": "application/json"}).send(doc);
-
-        }
-
-    });
+    }
 
 });
 
@@ -93,7 +106,16 @@ router.put(route.updatePharmacie, (req, res) => {
 
         }else{
 
-            res.status(200, {"Content-Type": "application/json"}).send(doc);
+            if(doc){
+
+                res.status(200, {"Content-Type": "application/json"}).send(doc);
+
+            }else{
+
+                var msg = "No pharmacie found";
+                res.status(404, {"Content-Type": "application/json"}).send(msg);
+
+            }
 
         }
 
