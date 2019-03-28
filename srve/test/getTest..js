@@ -21,8 +21,8 @@ describe("get from database", () => {
 
     before(() => {
         PharmacieModel.deleteMany();
-         var pharmacie = new PharmacieModel(pharmacieMockup);
-         pharmacie.save();
+        var pharmacie = new PharmacieModel(pharmacieMockup);
+        pharmacie.save();
     });
 
     it("200 ok", (done) => {

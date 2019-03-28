@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const Pharmacie = require('../models/pharmacieModel');
 const route = require('./routeProperties');
+
+var contentTypeJson = contentTypeJson
 
 router.get(route.hello, (req, res) => {
     
@@ -13,7 +14,7 @@ router.get(route.hello, (req, res) => {
 router.post(route.savePharmacie, (req, res) => {
 
     try {
-        
+
         var pharmacie = new Pharmacie(req.body);
     
         pharmacie.save((err, doc) => {
@@ -21,45 +22,47 @@ router.post(route.savePharmacie, (req, res) => {
             if(err){
     
                 if(err.name){
-                    
-                    res.status(400, {"Content-Type": "application/json"}).send({message :"the ressource you sent is incorrectly formed"});
+                    var msg = "the ressource you sent is incorrectly formed";
+                    res.status(400, contentTypeJson).send({message :msg});
                     
                 }
-                
     
             }else{
-    
-                res.status(200, {"Content-Type": "application/json"}).send({message : "Pharmacie successfuly added !", doc});
+
+                var msg = "Pharmacie successfuly added !";
+                res.status(200, contentTypeJson).send({message : msg, doc});
     
             }
     
         });
 
-    } catch (error) {
+    } catch (err) {
         
-        res.status(500, {"Content-Type": "application/json"}).send({message : "something wen wrong on our side... sorry duuuuude", error});
+        var msg = "something wen wrong on our side... sorry duuuuude";
+        res.status(500, contentTypeJson).send({message : msg, error});
 
     }
 
 });
+
 
 router.get(route.getAllPharmacies, (req, res) => {
     
     Pharmacie.find({}, (error, doc) => {
         if(error){
 
-            res.status(500, {"Content-Type": "application/json"}).send(err);
+            res.status(500, contentTypeJson).send(err);
 
         }else{
             
             if(doc){
                 
-                res.status(200, {"Content-Type": "application/json"}).send(doc);
+                res.status(200, contentTypeJson).send(doc)
                 
             }else{
 
                 var msg = "No pharmacie found";
-                res.status(404, {"Content-Type": "application/json"}).send(msg);
+                res.status(404, contentTypeJson).send(msg);
 
             }
         }
@@ -75,18 +78,18 @@ router.get(route.getPharmacieById, (req, res) => {
 
         if(err){
 
-            res.status(500, {"Content-Type": "application/json"}).send(err);
+            res.status(500, contentTypeJson).send(err);
 
         }else{
 
             if(doc){
 
-                res.status(200, {"Content-Type": "application/json"}).send(doc);
+                res.status(200, contentTypeJson).send(doc);
 
             }else{
 
                 var msg = "No pharmacie found";
-                res.status(404, {"Content-Type": "application/json"}).send(msg);
+                res.status(404, contentTypeJson).send(msg);
 
             }
 
@@ -102,18 +105,18 @@ router.put(route.updatePharmacie, (req, res) => {
 
         if(err){
 
-            res.status(500, {"Content-Type": "application/json"}).send(err);
+            res.status(500, contentTypeJson).send(err);
 
         }else{
 
             if(doc){
 
-                res.status(200, {"Content-Type": "application/json"}).send(doc);
+                res.status(200, contentTypeJson).send(doc);
 
             }else{
 
                 var msg = "No pharmacie found";
-                res.status(404, {"Content-Type": "application/json"}).send(msg);
+                res.status(404, contentTypeJson).send(msg);
 
             }
 
@@ -129,11 +132,11 @@ router.delete(route.deletePharmacie, (req,res) => {
 
         if(err){
 
-            res.status(500, {"Content-Type": "application/json"}).send(err);
+            res.status(500, contentTypeJson).send(err);
 
         }else{
 
-            res.status(200, {"Content-Type": "application/json"}).send(doc);
+            res.status(200, contentTypeJson).send(doc);
 
         }
     })

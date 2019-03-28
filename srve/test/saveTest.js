@@ -103,7 +103,6 @@ describe('save to database', () => {
             }
             
         });
-        
 
     });
 
@@ -111,25 +110,23 @@ describe('save to database', () => {
 
         chai.request(app)
         .post(routes.baseUrl + routes.savePharmacie)
-        .send({"test" : "test"})
+        .send()
         .end((err, res,  body) => {
 
             if(err){
 
-                done(err);
+                res.should.have.status(400);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('something wen wrong on our side... sorry duuuuude');
+                done();
 
             }else{
 
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('the ressource you sent is incorrectly formed');
-
-                done();
+                done( new Error('should have failed with 500') );
 
             }
             
-        });
-        
+        });   
 
     });
 
