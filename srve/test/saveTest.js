@@ -23,7 +23,7 @@ describe('save entity', () => {
     it('200 ok', (done) => {
 
         chai.request(app)
-        .post(routes.baseUrl + routes.savePharmacie)
+        .post(routes.baseUrl + routes.pharmacies)
         .send(pharmacieMockup)
         .end((err, res,  body) => {
 
@@ -84,7 +84,7 @@ describe('save entity', () => {
     it('400 bad request', (done) => {
 
         chai.request(app)
-        .post(routes.baseUrl + routes.savePharmacie)
+        .post(routes.baseUrl + routes.pharmacies)
         .send({"test" : "test"})
         .end((err, res,  body) => {
 

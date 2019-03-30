@@ -25,7 +25,7 @@ describe('delete entity', () => {
 
         //get all pharmacies to extract one id to delete
         chai.request(app)
-        .get(routes.baseUrl + routes.getAllPharmacies)
+        .get(routes.baseUrl + routes.pharmacies)
         .end((err, res,  body) => {
 
             if(err){
@@ -37,7 +37,7 @@ describe('delete entity', () => {
                 pharmacieId = res.body[0]._id;
 
                 chai.request(app)
-                .delete(routes.baseUrl + routes.deletePharmacie + "?id=" + pharmacieId)
+                .delete(routes.baseUrl + routes.pharmacies + "?id=" + pharmacieId)
                 .send(pharmacieMockup)
                 .end((err, res,  body) => {
         
@@ -66,7 +66,7 @@ describe('delete entity', () => {
     it('404 not found', (done) => {
 
         chai.request(app)
-        .delete(routes.baseUrl + routes.deletePharmacie + "/404")
+        .delete(routes.baseUrl + routes.pharmacies + "/404")
         .send(pharmacieMockup)
         .end((err, res,  body) => {
 
@@ -92,7 +92,7 @@ describe('delete entity', () => {
         var pharmacieId = "zrerger";
 
         chai.request(app)
-        .delete(routes.baseUrl + routes.deletePharmacie + "?id=" + pharmacieId)
+        .delete(routes.baseUrl + routes.pharmacies + "?id=" + pharmacieId)
         .end((err, res,  body) => {
 
             if(err){
@@ -116,7 +116,7 @@ describe('delete entity', () => {
     it('400 id parameter missing', (done) => {
 
         chai.request(app)
-        .delete(routes.baseUrl + routes.deletePharmacie)
+        .delete(routes.baseUrl + routes.pharmacies)
         .end((err, res,  body) => {
 
             if(err){

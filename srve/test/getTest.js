@@ -28,7 +28,7 @@ describe("get all entities", () => {
     it("200 ok", (done) => {
 
         chai.request(app)
-            .get( routes.baseUrl + routes.getAllPharmacies)
+            .get( routes.baseUrl + routes.pharmacies)
             .end((err, res, body) => {
 
                 if(err){
@@ -61,7 +61,7 @@ describe("get all entities", () => {
     it('404 not found', (done) => {
 
         chai.request(app)
-        .get(routes.baseUrl + routes.getAllPharmacies + "/404")
+        .get(routes.baseUrl +  "/404")
         .end((err, res,  body) => {
 
             if(err){
@@ -103,7 +103,7 @@ describe("get entity by id", () => {
         //get all pharmacies to extract one id in order to test getPharmacieById
         var pharmacieId = "";
         chai.request(app)
-            .get(routes.baseUrl + routes.getAllPharmacies)
+            .get(routes.baseUrl + routes.pharmacies)
             .end((err, res, body) => {
 
                 if(err) {
@@ -114,7 +114,7 @@ describe("get entity by id", () => {
                     pharmacieId = res.body[0]._id;
 
                     chai.request(app)
-                    .get( routes.baseUrl + routes.getPharmacieById + "?id=" + pharmacieId)
+                    .get( routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
                     .end((err, res, body) => {
 
                         if(err){
@@ -149,7 +149,7 @@ describe("get entity by id", () => {
     it('404 not found', (done) => {
 
         chai.request(app)
-        .get(routes.baseUrl + routes.getAllPharmacies + "/404")
+        .get(routes.baseUrl + "/404")
         .end((err, res,  body) => {
 
             if(err){
@@ -180,7 +180,7 @@ describe("get entity by id", () => {
         //get all pharmacies to extract one id in order to test getPharmacieById
         var pharmacieId = "";
         chai.request(app)
-            .get(routes.baseUrl + routes.getAllPharmacies)
+            .get(routes.baseUrl + routes.pharmacies)
             .end((err, res, body) => {
                 
                 if(err) {
@@ -192,7 +192,7 @@ describe("get entity by id", () => {
                     pharmacieId = "4c964557bf0bc7332da8b8ef"
 
                     chai.request(app)
-                    .get( routes.baseUrl + routes.getPharmacieById + "?id=" + pharmacieId)
+                    .get( routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
                     .end((err, res, body) => {
 
                         if(err){
@@ -220,7 +220,7 @@ describe("get entity by id", () => {
         pharmacieId = "zrezrefzf"
 
         chai.request(app)
-        .get( routes.baseUrl + routes.getPharmacieById + "?id=" + pharmacieId)
+        .get( routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
         .end((err, res, body) => {
 
             if(err){
@@ -241,28 +241,5 @@ describe("get entity by id", () => {
 
     });
 
-    it("400 id parameter missing", (done) => {
-
-        chai.request(app)
-        .get( routes.baseUrl + routes.getPharmacieById)
-        .end((err, res, body) => {
-
-            if(err){
-
-                done(err);
-
-            }else{
-                
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('missing id parameter in request');
-                
-                done();
-
-            }
-
-        });
-
-    });
 
 });

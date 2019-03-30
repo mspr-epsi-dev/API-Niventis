@@ -10,7 +10,7 @@ var contentTypeJson = {"Content-Type": "application/json"};
 /**
  * @body (req.body) : JSON object
  */
-router.post(route.savePharmacie, (req, res) => {
+router.post(route.pharmacies, (req, res) => {
 
     try {
 
@@ -46,7 +46,7 @@ router.post(route.savePharmacie, (req, res) => {
 });
 
 //return all pharmacies in the database
-router.get(route.getAllPharmacies, (req, res) => {
+router.get(route.pharmacies, (req, res) => {
     
     Pharmacie.find({}, (error, doc) => {
         if(error){
@@ -73,39 +73,34 @@ router.get(route.getAllPharmacies, (req, res) => {
 });
 
 //return pharmacie corresponding to the id specified in the request paramater
-router.get(route.getPharmacieById, (req, res) => {
-
-    if(!req.query.id || typeof req.query.id == 'undefined'){
-        
-        var msg = "missing id parameter in request";
-        res.status(400, contentTypeJson).send({message :msg});
-
-    } else {
-
-        Pharmacie.findById(req.query.id, (err,doc) => {
-
-            if(err){
+router.get(route.pharmacies + "/:id", (req, res) => {
     
-                var msg = "incorrect pharmacie id, check the id property";
-                res.status(400, contentTypeJson).send({message :msg});
-    
+    var id = req.params.id;
+
+    Pharmacie.findById(id, (err,doc) => {
+
+        if(err){
+
+            var msg = "incorrect pharmacie id, check the id property";
+            res.status(400, contentTypeJson).send({message :msg});
+
+        }else{
+
+            if(doc){
+
+                res.status(200, contentTypeJson).send(doc);
+
             }else{
-    
-                if(doc){
-    
-                    res.status(200, contentTypeJson).send(doc);
-    
-                }else{
-    
-                    var msg = "No pharmacie found, check the id property";
-                    res.status(404, contentTypeJson).send({message :msg});
-    
-                }
-    
+
+                var msg = "No pharmacie found, check the id property";
+                res.status(404, contentTypeJson).send({message :msg});
+
             }
-    
-        });
-    }
+
+        }
+
+    });
+
 
 });
 
@@ -114,10 +109,12 @@ router.get(route.getPharmacieById, (req, res) => {
  * @requestParam : id => id of the entity to update
  * @return(body of the response) : JSON => return the updated document
  */
-router.put(route.updatePharmacie, (req, res) => {
+router.put(route.pharmacies + "/:id", (req, res) => {
+
+    var id = req.params.id
 
     //check if there is a query parameter
-    if(!req.query.id || typeof req.query.id == 'undefined'){
+    if(!id || typeof id == 'undefined'){
         
         var msg = "missing id parameter in request";
         res.status(400, contentTypeJson).send({message :msg});
@@ -125,7 +122,7 @@ router.put(route.updatePharmacie, (req, res) => {
     } else {
 
         //first check if the id exist on database
-        Pharmacie.findById(req.query.id, (err,doc) => {
+        Pharmacie.findById(id, (err,doc) => {
 
             if(err){
     
@@ -139,6 +136,7 @@ router.put(route.updatePharmacie, (req, res) => {
                 
             } else {
 
+                //if the id exist, it's been updated
                 Pharmacie.findOneAndUpdate(req.query.id, req.body,{new: true}, (err, doc) => {
 
                     if(err){
@@ -183,7 +181,7 @@ router.put(route.updatePharmacie, (req, res) => {
 
 })
 
-router.delete(route.deletePharmacie, (req,res) => {
+router.delete(route.pharmacies, (req,res) => {
 
     if(!req.query.id || typeof req.query.id == 'undefined'){
         

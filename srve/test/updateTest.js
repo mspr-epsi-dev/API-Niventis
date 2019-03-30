@@ -25,7 +25,7 @@ describe('update entity', () => {
 
         var pharmacieId = "";
         chai.request(app) //get all pharmacie
-            .get(routes.baseUrl + routes.getAllPharmacies)
+            .get(routes.baseUrl + routes.pharmacies)
             .end((err, res, body) => {
 
                 pharmacieId = res.body[0]._id; //select the first one
@@ -34,7 +34,7 @@ describe('update entity', () => {
 
                 //modify the selected pharmacie
                 chai.request(app)
-                .put(routes.baseUrl + routes.updatePharmacie + "?id=" + pharmacieId)
+                .put(routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
                 .send({name: nameAfterModification})
                 .end((err, res,  body) => {
         
@@ -64,7 +64,7 @@ describe('update entity', () => {
     it('404 wrong url', (done) => {
 
         chai.request(app)
-        .put(routes.baseUrl + routes.updatePharmacie + "/404")
+        .put(routes.baseUrl + "/404")
         .send(pharmacieMockup)
         .end((err, res,  body) => {
 
@@ -90,7 +90,7 @@ describe('update entity', () => {
 
         var pharmacieId = "5c9b7fd3e64fbd4c6be8f14d"
         chai.request(app)
-        .put(routes.baseUrl + routes.updatePharmacie + "?id="+ pharmacieId)
+        .put(routes.baseUrl + routes.pharmacies + "/"+ pharmacieId)
         .send(pharmacieMockup)
         .end((err, res,  body) => {
 
@@ -117,14 +117,14 @@ describe('update entity', () => {
 
         var pharmacieId = "";
         chai.request(app) //get all pharmacie
-            .get(routes.baseUrl + routes.getAllPharmacies)
+            .get(routes.baseUrl + routes.pharmacies)
             .end((err, res, body) => {
 
                 pharmacieId = res.body[0]._id; //select the first one
 
                 //modify the selected pharmacie
                 chai.request(app)
-                .put(routes.baseUrl + routes.updatePharmacie + "?id=" + pharmacieId)
+                .put(routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
                 .send({test: "test"})
                 .end((err, res,  body) => {
         
@@ -146,31 +146,6 @@ describe('update entity', () => {
 
 
             })
-
-    });
-
-    it('400 missing id parameter', (done) => {
-
-        chai.request(app)
-        .put(routes.baseUrl + routes.updatePharmacie)
-        .send(pharmacieMockup)
-        .end((err, res,  body) => {
-
-            if(err){
-
-                done(err);
-
-            }else{
-                
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('missing id parameter in request');
-                
-                done();
-
-            }
-            
-        });
 
     });
 

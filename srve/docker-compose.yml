@@ -20,7 +20,7 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - /data/db/raw-data:/data/raw-data
+      - /data/db/mspr-srve:/data/mspr-srve
     networks:
       - mspr-srve
 

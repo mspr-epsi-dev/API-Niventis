@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3001
 
-CMD NODE_ENV=production npm start
+CMD NODE_ENV=production npm run server
