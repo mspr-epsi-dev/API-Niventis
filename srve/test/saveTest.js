@@ -18,7 +18,7 @@ const chaiExclude = require('chai-exclude');
 chai.use(chaiExclude);
 
 
-describe('save to database', () => {
+describe('save entity', () => {
 
     it('200 ok', (done) => {
 
@@ -105,30 +105,5 @@ describe('save to database', () => {
         });
 
     });
-
-    it('500 internal serveur error', (done) => {
-
-        chai.request(app)
-        .post(routes.baseUrl + routes.savePharmacie)
-        .send()
-        .end((err, res,  body) => {
-
-            if(err){
-
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('something wen wrong on our side... sorry duuuuude');
-                done();
-
-            }else{
-
-                done( new Error('should have failed with 500') );
-
-            }
-            
-        });   
-
-    });
-
 
 });
