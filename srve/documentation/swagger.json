@@ -133,17 +133,15 @@
     "definitions": {
       "Pharmacie": {
         "required": [
-          "name",
           "_id"
         ],
         "properties": {
           "_id": {
             "type": "string",
-            "uniqueItems": true
+            "auto-generated": true
           },
           "name": {
-            "type": "string",
-            "uniqueItems": false
+            "type": "string"
           },
           "address": {
             "type": "string"
@@ -159,12 +157,25 @@
           },
           "traningNeed": {
             "type": "string"
+          },
+          "productBought": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "productName": {
+                  "type": "string"
+                },
+                "quantityBoughtPerMonth":{
+                  "type": "float"
+                },
+                "price": {
+                  "type": "float"
+                }
+              }
+            }       
           }
         }
-      },
-      "Pharmacie": {
-        "type": "array",
-        "$ref": "#/definitions/Pharmacie"
       }
     }
   }
