@@ -215,6 +215,82 @@ describe("get entity by id", () => {
 
     });
 
+    it('404 no pharmacie found with this id', (done) => {
+
+        var pharmacieId = "";
+
+        //get all pharmacies to extract one id to delete
+        chai.request(app)
+        .get(routes.baseUrl + routes.pharmacies)
+        .end((err, res,  body) => {
+
+            if(err){
+
+                done(err);
+
+            }else{
+
+                pharmacieId = res.body[0]._id;
+
+                chai.request(app)
+                .delete(routes.baseUrl + routes.pharmacies + "?id=" + pharmacieId)
+                .send(pharmacieMockup)
+                .end((err, res,  body) => {
+        
+                    if(err){
+        
+                        done(err);
+        
+                    }else{
+        
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        res.body.should.have.property('message').eql('Pharmacie successfuly deleted !');
+
+                        //get pharmacie byId to check if it has been really deleted
+                        chai.request(app)
+                            .get(routes.baseUrl + routes.pharmacies)
+                            .end((err, res, body) => {
+                
+                                if(err) {
+                
+                                    done(err);
+                
+                                } else {
+                
+                                    chai.request(app)
+                                    .get( routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
+                                    .end((err, res, body) => {
+                
+                                        if(err){
+                
+                                            done(err);
+                
+                                        }else{
+                                            
+                                            res.should.have.status(404);
+                                            res.body.should.be.a('object');
+                                            res.body.should.have.property('message').eql('No pharmacie found, check the id property')
+                            
+                                            done();
+                
+                                        }
+                
+                                    });
+                                }
+                            })
+        
+        
+                    }
+                    
+                });
+
+            }
+            
+        });       
+
+    });
+
     it("400 id malformed", (done) => {
 
         pharmacieId = "zrezrefzf"

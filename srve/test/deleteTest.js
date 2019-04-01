@@ -50,8 +50,40 @@ describe('delete entity', () => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
                         res.body.should.have.property('message').eql('Pharmacie successfuly deleted !');
+
+                        //get pharmacie byId to check if it has been really deleted
+                        chai.request(app)
+                            .get(routes.baseUrl + routes.pharmacies)
+                            .end((err, res, body) => {
+                
+                                if(err) {
+                
+                                    done(err);
+                
+                                } else {
+                
+                                    chai.request(app)
+                                    .get( routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
+                                    .end((err, res, body) => {
+                
+                                        if(err){
+                
+                                            done(err);
+                
+                                        }else{
+                                            
+                                            res.should.have.status(404);
+                                            res.body.should.be.a('object');
+                                            res.body.should.have.property('message').eql('No pharmacie found, check the id property')
+                            
+                                            done();
+                
+                                        }
+                
+                                    });
+                                }
+                            })
         
-                        done();
         
                     }
                     
