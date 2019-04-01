@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'test';
 
+const httpMessage = require('../controller/httpMessages');
 const chaiHttp = require ('chai-http');
 const app = require ('../bin/app');
 const pharmacieMockup = require('./pharmacieMockup.json');
@@ -49,7 +50,7 @@ describe('delete entity', () => {
         
                         res.should.have.status(200);
                         res.body.should.be.a('object');
-                        res.body.should.have.property('message').eql('Pharmacie successfuly deleted !');
+                        res.body.should.have.property('message').eql(httpMessage["200"].deleteSucess);
 
                         //get pharmacie byId to check if it has been really deleted
                         chai.request(app)
@@ -74,7 +75,7 @@ describe('delete entity', () => {
                                             
                                             res.should.have.status(404);
                                             res.body.should.be.a('object');
-                                            res.body.should.have.property('message').eql('No pharmacie found, check the id property')
+                                            res.body.should.have.property('message').eql(httpMessage["404"].pharmacieNotFound)
                             
                                             done();
                 
@@ -135,7 +136,7 @@ describe('delete entity', () => {
 
                 res.should.have.status(400);
                 res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('the id is incorrectly formed');
+                res.body.should.have.property('message').eql(httpMessage["400"].missformedId);
 
                 done();
 
@@ -161,7 +162,7 @@ describe('delete entity', () => {
 
                 res.should.have.status(404);
                 res.body.should.be.a('object');
-                res.body.should.have.property('message').eql("Pharmacie id doesn't exist or has been already deleted");
+                res.body.should.have.property('message').eql(httpMessage["404"].pharmacieNotFound);
 
                 done();
 

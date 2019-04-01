@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'test';
 
+const httpMessage = require('../controller/httpMessages');
 const chaiHttp = require ('chai-http');
 const app = require ('../bin/app');
 const pharmacieMockup = require('./pharmacieMockup.json');
@@ -203,7 +204,7 @@ describe("get entity by id", () => {
                             
                             res.should.have.status(404);
                             res.body.should.be.a('object');
-                            res.body.should.have.property('message').eql('No pharmacie found, check the id property');
+                            res.body.should.have.property('message').eql(httpMessage["404"].pharmacieNotFound);
 
                             done();
 
@@ -246,7 +247,7 @@ describe("get entity by id", () => {
         
                         res.should.have.status(200);
                         res.body.should.be.a('object');
-                        res.body.should.have.property('message').eql('Pharmacie successfuly deleted !');
+                        res.body.should.have.property('message').eql(httpMessage["200"].deleteSucess);
 
                         //check that no pharmacie have been found with this id
                         chai.request(app)
@@ -271,7 +272,7 @@ describe("get entity by id", () => {
                                             
                                             res.should.have.status(404);
                                             res.body.should.be.a('object');
-                                            res.body.should.have.property('message').eql('No pharmacie found, check the id property')
+                                            res.body.should.have.property('message').eql(httpMessage["404"].pharmacieNotFound)
                             
                                             done();
                 
@@ -308,7 +309,7 @@ describe("get entity by id", () => {
                 
                 res.should.have.status(400);
                 res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('incorrect pharmacie id, check the id property');
+                res.body.should.have.property('message').eql(httpMessage["400"].missformedId);
                 
                 done();
 

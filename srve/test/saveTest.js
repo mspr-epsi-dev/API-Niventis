@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'test';
 
+const httpMessage = require('../controller/httpMessages');
 const chaiHttp = require ('chai-http');
 const app = require ('../bin/app');
 const pharmacieMockup = require('./pharmacieMockup.json');
@@ -35,7 +36,7 @@ describe('save entity', () => {
 
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('Pharmacie successfuly added !');
+                res.body.should.have.property('message').eql(httpMessage["200"].saveSuccess);
                 res.body.doc.should.have.property('name');
                 res.body.doc.should.have.property('adress');
                 res.body.doc.should.have.property('lattitude');
@@ -96,7 +97,7 @@ describe('save entity', () => {
 
                 res.should.have.status(400);
                 res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('the ressource you sent is incorrectly formed');
+                res.body.should.have.property('message').eql(httpMessage["400"].missformedRessource);
 
                 done();
 

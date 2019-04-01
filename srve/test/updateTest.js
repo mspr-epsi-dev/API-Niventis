@@ -1,5 +1,5 @@
 process.env.NODE_ENV = 'test';
-
+const httpMessage = require('../controller/httpMessages');
 const chaiHttp = require ('chai-http');
 const app = require ('../bin/app');
 const pharmacieMockup = require('./pharmacieMockup.json');
@@ -46,7 +46,7 @@ describe('update entity', () => {
                         
                         res.should.have.status(200);
                         res.body.should.be.a('object');
-                        res.body.should.have.property('message').eql('successfully updated document !');
+                        res.body.should.have.property('message').eql(httpMessage["200"].updateSuccess);
                         expect(res.body.newDocument.name).to.deep.equal(nameAfterModification);
         
                         done();
@@ -86,7 +86,7 @@ describe('update entity', () => {
 
     });
 
-    it('404 id not found', (done) => {
+    it('404 pharmacie not found', (done) => {
 
         var pharmacieId = "5c9b7fd3e64fbd4c6be8f14d"
         chai.request(app)
@@ -100,9 +100,9 @@ describe('update entity', () => {
 
             }else{
 
-                res.should.have.status(400);
+                res.should.have.status(404);
                 res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('No pharmacie found, check the id property');
+                res.body.should.have.property('message').eql(httpMessage["404"].pharmacieNotFound);
 
                 done();
 
@@ -136,7 +136,7 @@ describe('update entity', () => {
         
                         res.should.have.status(400);
                         res.body.should.be.a('object');
-                        res.body.should.have.property('message').eql('the ressource you sent is incorrectly formed');
+                        res.body.should.have.property('message').eql(httpMessage["400"].missformedRessource);
         
                         done();
         
