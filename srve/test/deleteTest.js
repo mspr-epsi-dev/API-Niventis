@@ -37,7 +37,7 @@ describe('delete entity', () => {
                 pharmacieId = res.body[0]._id;
 
                 chai.request(app)
-                .delete(routes.baseUrl + routes.pharmacies + "?id=" + pharmacieId)
+                .delete(routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
                 .send(pharmacieMockup)
                 .end((err, res,  body) => {
         
@@ -95,10 +95,10 @@ describe('delete entity', () => {
 
     });
 
-    it('404 not found', (done) => {
+    it('404 wrong url', (done) => {
 
         chai.request(app)
-        .delete(routes.baseUrl + routes.pharmacies + "/404")
+        .delete(routes.baseUrl + "/404")
         .send(pharmacieMockup)
         .end((err, res,  body) => {
 
@@ -124,7 +124,7 @@ describe('delete entity', () => {
         var pharmacieId = "zrerger";
 
         chai.request(app)
-        .delete(routes.baseUrl + routes.pharmacies + "?id=" + pharmacieId)
+        .delete(routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
         .end((err, res,  body) => {
 
             if(err){
@@ -145,10 +145,12 @@ describe('delete entity', () => {
 
     });
 
-    it('400 id parameter missing', (done) => {
+    it('404 id not found', (done) => {
+
+        var pharmacieId = "5c9fb17193e0021c9214559c";
 
         chai.request(app)
-        .delete(routes.baseUrl + routes.pharmacies)
+        .delete(routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
         .end((err, res,  body) => {
 
             if(err){
@@ -157,9 +159,9 @@ describe('delete entity', () => {
 
             }else{
 
-                res.should.have.status(400);
+                res.should.have.status(404);
                 res.body.should.be.a('object');
-                res.body.should.have.property('message').eql('missing id parameter in request');
+                res.body.should.have.property('message').eql("Pharmacie id doesn't exist or has been already deleted");
 
                 done();
 

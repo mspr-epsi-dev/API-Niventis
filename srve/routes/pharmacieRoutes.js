@@ -181,44 +181,33 @@ router.put(route.pharmacies + "/:id", (req, res) => {
 
 })
 
-router.delete(route.pharmacies, (req,res) => {
+router.delete(route.pharmacies + "/:id", (req,res) => {
 
-    if(!req.query.id || typeof req.query.id == 'undefined'){
-        
-        var msg = "missing id parameter in request";
-        res.status(400, contentTypeJson).send({message :msg});
+    var id = req.params.id;
 
-    } else {       
+    Pharmacie.findOneAndDelete({_id: id}, (err, doc) =>{
 
-        Pharmacie.findOneAndDelete({_id: req.query.id}, (err, doc) =>{
+        if(err){
 
-            if(err){
-    
-                var msg = "the id is incorrectly formed";
-                res.status(400, contentTypeJson).send({message :msg, error : err});
-    
+            var msg = "the id is incorrectly formed";
+            res.status(400, contentTypeJson).send({message :msg, error : err});
+
+        }else{
+
+            if(doc){
+
+                var msg = "Pharmacie successfuly deleted !";
+                res.status(200, contentTypeJson).send({message :msg});
+
             }else{
-                
-                Pharmacie.findById(req.query.id, (err, resp) => {
 
-                     if(resp){
+                var msg = "Pharmacie id doesn't exist or has been already deleted";
+                res.status(404, contentTypeJson).send({message :msg});
 
-                        var msg = "Pharmacie hasn't been deleted... something wrong on our side";
-                        res.status(500, contentTypeJson).send({message :msg});
-
-                    } else {
-                        
-                        var msg = "Pharmacie successfuly deleted !";
-                        res.status(200, contentTypeJson).send({message :msg});
-
-                    }
-
-                });
-    
             }
-        });
 
-    }
+        }
+    });
 
 });
 

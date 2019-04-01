@@ -230,10 +230,11 @@ describe("get entity by id", () => {
 
             }else{
 
+                //delete the id to be sure to test an unknow id
                 pharmacieId = res.body[0]._id;
 
                 chai.request(app)
-                .delete(routes.baseUrl + routes.pharmacies + "?id=" + pharmacieId)
+                .delete(routes.baseUrl + routes.pharmacies + "/" + pharmacieId)
                 .send(pharmacieMockup)
                 .end((err, res,  body) => {
         
@@ -247,7 +248,7 @@ describe("get entity by id", () => {
                         res.body.should.be.a('object');
                         res.body.should.have.property('message').eql('Pharmacie successfuly deleted !');
 
-                        //get pharmacie byId to check if it has been really deleted
+                        //check that no pharmacie have been found with this id
                         chai.request(app)
                             .get(routes.baseUrl + routes.pharmacies)
                             .end((err, res, body) => {
