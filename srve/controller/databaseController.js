@@ -1,4 +1,4 @@
-const init = require('../init');
+const init = require('../init/init');
 const mongoose = require('mongoose');
 
 module.exports = {

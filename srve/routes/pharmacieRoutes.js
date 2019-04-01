@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Pharmacie = require('../models/pharmacieModel');
-const route = require('./routeProperties');
-const pharmacieMockup = require('../test/pharmacieMockup.json');
+const route = require('../init/routes');
 const pharmacie = require('../controller/pharmacieController');
-
-var contentTypeJson = {"Content-Type": "application/json"};
 
 /**
  * save pharmacie

@@ -1,6 +1,0 @@
-{
-    "400": {
-        "missformedRessource" : "the ressource you sent is incorrectly formed",
-        "missformedId" : "the id is incorrectly formed"
-    }
-}

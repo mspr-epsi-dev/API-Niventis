@@ -1,5 +1,5 @@
 const Pharmacie = require('../models/pharmacieModel');
-const httpMessage = require('./httpMessages');
+const httpMessage = require('../init/httpMessages');
 const pharmacieMockup = require('../test/pharmacieMockup.json')
 const contentTypeJson = {"Content-Type": "application/json"};
 
