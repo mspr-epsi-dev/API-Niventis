@@ -3,7 +3,7 @@
     "info": {
       "version": "1.0.0",
       "title": "MSPR dev : Pharmacie database",
-      "description": "API for CRUD operation on pharmacie database"
+      "description": "API exposing CRUD operation to target pharmacie database"
     },
     "host": "localhost:3000",
     "basePath": "/api",
@@ -133,7 +133,8 @@
     "definitions": {
       "Pharmacie": {
         "required": [
-          "_id"
+          "_id",
+          "name"
         ],
         "properties": {
           "_id": {
@@ -144,7 +145,21 @@
             "type": "string"
           },
           "address": {
-            "type": "string"
+            "type":"object",
+            "properties":{
+              "nbr" : {
+                "type": "int"
+              },
+              "street" : {
+                "type" : "string"
+              },
+              "zipCode" :{
+                "type": "int"
+              },
+              "city" : {
+                "type": "string"
+              }
+            }
           },
           "lattitude": {
             "type": "float"
