@@ -7,8 +7,6 @@
         "zipCode": 34200,
         "city": "Paulhan"
     },
-    "lattitude": 43.54062,
-    "longitude": 3.45958,
     "turnover": 150000,
     "trainingNeed": "technique de vente",
     "productBought" : [
@@ -22,6 +20,8 @@
             "quantityBoughtPerMonth": 165,
             "productPrice": 32
         }
-    ]
+    ],
+    "gpsCoordinates": [-80, 25.791]
+
 
 }

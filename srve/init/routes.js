@@ -1,6 +1,7 @@
 module.exports = {
     
     baseUrl: '/api',
-    pharmacies: '/pharmacies'
+    pharmacies: '/pharmacies',
+    localisation:'/localisation'
     
 }

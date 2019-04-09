@@ -224,21 +224,21 @@ module.exports = {
 
         try {
             
-            Pharmacie.findOneAndDelete({_id: id}, (err, doc) =>{
+            Pharmacie.findOneAndDelete({_id: id}, (err, doc) => {
 
-                if(err){
+                if(err) {
         
                     var msg = httpMessage["400"].missformedId;
                     res.status(400, contentTypeJson).send({message :msg, error : err});
         
-                }else{
+                } else {
         
-                    if(doc){
+                    if(doc) { 
         
                         var msg = httpMessage["200"].deleteSucess;
                         res.status(200, contentTypeJson).send({message :msg});
         
-                    }else{
+                    } else {
         
                         var msg = httpMessage["404"].pharmacieNotFound;
                         res.status(404, contentTypeJson).send({message :msg});
@@ -256,6 +256,70 @@ module.exports = {
             
         }
 
+    },
+
+    /**
+     * query pharmacies around latt & long point, based on perimeter limit
+     * @latt latt : lattitude
+     * @long long: longitude
+     * @perimter perimeter: limit perimeter of the research
+     * @Return JSON array (pharmacies around)
+     */
+    locatePharmacie : (long, latt, perimeter, res) => {
+                
+        if( parseInt(long) && parseInt(latt) ) {
+
+            longittude = parseInt(long);
+            lattitude = parseInt(latt);
+            maxDistance = parseInt(perimeter);
+
+            var query = {
+
+                gpsCoordinates: {
+                    $near: [longittude, lattitude],
+                    $maxDistance: maxDistance
+                }
+
+            }
+
+            try {
+                
+                Pharmacie.find( query,(error, doc) => {
+
+                    if( error ){
+
+                        var msg = httpMessage["500"].somethingWrong;
+                        res.status(500, contentTypeJson).send( { message : msg } );
+                        console.log({error:{msg: error.message, stack: error.stack}});  
+
+                    }else if( doc.length < 1 ){
+
+                        var msg = httpMessage["404"].noPharmacieAround;
+                        res.status(404, contentTypeJson).send({message :msg});
+                        
+                    }else if ( doc ) {
+
+                        var msg = httpMessage["200"].searchSucess;
+                        res.status(200, contentTypeJson).send({message :msg, doc});
+
+                    }
+
+                });
+
+            } catch (error) {
+                
+                res.status(500, contentTypeJson).send( { message : msg } );
+            }
+            
+        } else {
+
+            var msg = httpMessage["400"].incorrectQueryParam;
+            res.status(400, contentTypeJson).send({message :msg});
+
+        }
+
+        
+        
     }
 
 

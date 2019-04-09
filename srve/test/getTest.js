@@ -42,14 +42,15 @@ describe("get all entities", () => {
                     res.body.should.be.a('array');
                     res.body[0].should.have.property('name');
                     res.body[0].should.have.property('adress');
-                    res.body[0].should.have.property('lattitude');
-                    res.body[0].should.have.property('longitude');
-                    res.body[0].should.have.property('turnover');
                     res.body[0].should.have.property('trainingNeed');
                     res.body[0].should.have.property('productBought');
                     res.body[0].productBought[0].should.have.property('productName');
                     res.body[0].productBought[0].should.have.property('quantityBoughtPerMonth');
                     res.body[0].productBought[0].should.have.property('productPrice');
+                    res.body[0].should.have.property('gpsCoordinates');
+                    res.body[0].gpsCoordinates.should.have.length(2);
+                    res.body[0].gpsCoordinates[0].should.be.a('number');
+                    res.body[0].gpsCoordinates[1].should.be.a('number');
     
                     done();
 
@@ -128,14 +129,15 @@ describe("get entity by id", () => {
                             res.body.should.be.a('object');
                             res.body.should.have.property('name');
                             res.body.should.have.property('adress');
-                            res.body.should.have.property('lattitude');
-                            res.body.should.have.property('longitude');
-                            res.body.should.have.property('turnover');
                             res.body.should.have.property('trainingNeed');
                             res.body.should.have.property('productBought');
                             res.body.productBought[0].should.have.property('productName');
                             res.body.productBought[0].should.have.property('quantityBoughtPerMonth');
                             res.body.productBought[0].should.have.property('productPrice');
+                            res.body.should.have.property('gpsCoordinates');
+                            res.body.gpsCoordinates.should.have.length(2);
+                            res.body.gpsCoordinates[0].should.be.a('number');
+                            res.body.gpsCoordinates[1].should.be.a('number');
             
                             done();
 

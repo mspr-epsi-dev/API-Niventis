@@ -66,4 +66,22 @@ router.delete(route.pharmacies + "/:id", (req,res) => {
 
 });
 
+/**
+ * search pharmacies around latt & long point, based on perimeter limit
+ * GET request
+ * @QueryParam latt : lattitude
+ * @QueryParam long: longitude
+ * @QueryParam perimeter: limit perimeter of the research
+ * @Return JSON array of pharmacies around
+ */
+router.get("/localisation", (req, res) => {
+    
+    var long = parseFloat(req.query.long);
+    var latt = parseFloat(req.query.latt);
+    var perimeter = req.query.perim;
+
+    pharmacie.locatePharmacie(long, latt, perimeter, res);
+
+});
+
 module.exports = router;

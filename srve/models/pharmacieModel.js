@@ -5,19 +5,23 @@ const Product = require('./productModel');
 const pharmacieSchema = new Schema({
 
     name: {type : String, required: true},
+
     adress: {
         nbr:Number,
         street: String,
         zipCode: Number,
         city: String
     },
-    lattitude: Number,
-    longitude: Number,
+
     turnover: Number,
     trainingNeed: String,
-    productBought: [Product]
+    productBought: [Product],
+    gpsCoordinates:{
+        type: [Number],
+        index: "2d"
+    }
 
- });
+});
 
 const Pharmacie = mongoose.model('pharmacie', pharmacieSchema);
 

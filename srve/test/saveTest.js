@@ -32,20 +32,21 @@ describe('save entity', () => {
                 done(err);
 
             }else{
-
+                
+                should.exist(res.body);
                 res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message').eql(httpMessage["200"].saveSuccess);
+                res.body.doc.should.be.a('object');
                 res.body.doc.should.have.property('name');
                 res.body.doc.should.have.property('adress');
-                res.body.doc.should.have.property('lattitude');
-                res.body.doc.should.have.property('longitude');
-                res.body.doc.should.have.property('turnover');
                 res.body.doc.should.have.property('trainingNeed');
                 res.body.doc.should.have.property('productBought');
                 res.body.doc.productBought[0].should.have.property('productName');
                 res.body.doc.productBought[0].should.have.property('quantityBoughtPerMonth');
                 res.body.doc.productBought[0].should.have.property('productPrice');
+                res.body.doc.should.have.property('gpsCoordinates');
+                res.body.doc.gpsCoordinates.should.have.length(2);
+                res.body.doc.gpsCoordinates[0].should.be.a('number');
+                res.body.doc.gpsCoordinates[1].should.be.a('number');
 
                 done();
 
