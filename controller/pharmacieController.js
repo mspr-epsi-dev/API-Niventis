@@ -304,7 +304,7 @@ module.exports = {
                             res.status(500, contentTypeJson).send( { message : msg } );
                             console.log({error:{msg: error.message, stack: error.stack}});  
 
-                        } else if (doc.length < 0) {
+                        } else if (doc.length < 1) {
                             
                             var msg = httpMessage["404"].noPharmacieAround;
                             res.status(404, contentTypeJson).send( { message :msg, doc } );

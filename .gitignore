@@ -1,3 +1,2 @@
-srve/node_modules/*
-srvt/node_modules/*
+node_modules
 schema-global.xml
