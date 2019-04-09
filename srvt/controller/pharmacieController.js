@@ -265,58 +265,81 @@ module.exports = {
      * @perimter perimeter: limit perimeter of the research
      * @Return JSON array (pharmacies around)
      */
-    locatePharmacie : (long, latt, perimeter, res) => {
-                
-        if( parseInt(long) && parseInt(latt) ) {
+    locatePharmacie : (long, latt, perimeter, res) => {         
 
-            longittude = parseInt(long);
-            lattitude = parseInt(latt);
-            maxDistance = parseInt(perimeter);
+        try {
+            
+            //verify if query params are provided
+            if( parseInt(long) && parseInt(latt) ) {
 
-            var query = {
+                longittude = parseInt(long);
+                lattitude = parseInt(latt);
+                maxDistance = parseInt(perimeter);
 
-                gpsCoordinates: {
-                    $near: [longittude, lattitude],
-                    $maxDistance: maxDistance
-                }
+                var query = {
 
-            }
-
-            try {
-                
-                Pharmacie.find( query,(error, doc) => {
-
-                    if( error ){
-
-                        var msg = httpMessage["500"].somethingWrong;
-                        res.status(500, contentTypeJson).send( { message : msg } );
-                        console.log({error:{msg: error.message, stack: error.stack}});  
-
-                    }else if( doc.length < 1 ){
-
-                        var msg = httpMessage["404"].noPharmacieAround;
-                        res.status(404, contentTypeJson).send({message :msg});
-                        
-                    }else if ( doc ) {
-
-                        var msg = httpMessage["200"].searchSucess;
-                        res.status(200, contentTypeJson).send({message :msg, doc});
-
+                    gpsCoordinates: {
+                        $near: [longittude, lattitude],
+                        $maxDistance: maxDistance
                     }
 
-                });
+                }
 
-            } catch (error) {
+                try {
+
+                    Pharmacie.aggregate([{
+
+                        "$geoNear": {
+                            "near": [longittude,lattitude],
+                            "distanceField": "distance",
+                            "maxDistance": maxDistance,
+                            "query": { }
+                        }
+
+                    }], (err, doc) =>{
+
+                        if(err){
+
+                            var msg = httpMessage["500"].somethingWrong;
+                            res.status(500, contentTypeJson).send( { message : msg } );
+                            console.log({error:{msg: error.message, stack: error.stack}});  
+
+                        } else if (doc.length < 0) {
+                            
+                            var msg = httpMessage["404"].noPharmacieAround;
+                            res.status(404, contentTypeJson).send( { message :msg, doc } );
+                            
+                        } else if (doc.length > 0) {
+
+                            var msg = httpMessage["200"].searchSucess;
+                            res.status(200, contentTypeJson).send( { message :msg, doc } );
+
+                        }
+
+                    })
+
+                } catch (error) {
+                    
+                    res.status(500, contentTypeJson).send( { message : msg } );
+                }
                 
-                res.status(500, contentTypeJson).send( { message : msg } );
+            //if query params are not provided correctly, an error is sent back
+            } else {
+
+                var msg = httpMessage["400"].incorrectQueryParam;
+                res.status(400, contentTypeJson).send({message :msg});
+
             }
-            
-        } else {
 
-            var msg = httpMessage["400"].incorrectQueryParam;
-            res.status(400, contentTypeJson).send({message :msg});
+        } catch (error) {
 
+            var msg = httpMessage["500"].somethingWrong;
+            res.status(500, contentTypeJson).send( { message : msg } );
+            console.log(error);
+                        
         }
+
+        
 
         
         
