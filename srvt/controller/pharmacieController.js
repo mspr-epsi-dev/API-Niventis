@@ -265,81 +265,58 @@ module.exports = {
      * @perimter perimeter: limit perimeter of the research
      * @Return JSON array (pharmacies around)
      */
-    locatePharmacie : (long, latt, perimeter, res) => {         
-
-        try {
-            
-            //verify if query params are provided
-            if( parseInt(long) && parseInt(latt) ) {
-
-                longittude = parseInt(long);
-                lattitude = parseInt(latt);
-                maxDistance = parseInt(perimeter);
-
-                var query = {
-
-                    gpsCoordinates: {
-                        $near: [longittude, lattitude],
-                        $maxDistance: maxDistance
-                    }
-
-                }
-
-                try {
-
-                    Pharmacie.aggregate([{
-
-                        "$geoNear": {
-                            "near": [longittude,lattitude],
-                            "distanceField": "distance",
-                            "maxDistance": maxDistance,
-                            "query": { }
-                        }
-
-                    }], (err, doc) =>{
-
-                        if(err){
-
-                            var msg = httpMessage["500"].somethingWrong;
-                            res.status(500, contentTypeJson).send( { message : msg } );
-                            console.log({error:{msg: error.message, stack: error.stack}});  
-
-                        } else if (doc.length < 0) {
-                            
-                            var msg = httpMessage["404"].noPharmacieAround;
-                            res.status(404, contentTypeJson).send( { message :msg, doc } );
-                            
-                        } else if (doc.length > 0) {
-
-                            var msg = httpMessage["200"].searchSucess;
-                            res.status(200, contentTypeJson).send( { message :msg, doc } );
-
-                        }
-
-                    })
-
-                } catch (error) {
-                    
-                    res.status(500, contentTypeJson).send( { message : msg } );
-                }
+    locatePharmacie : (long, latt, perimeter, res) => {
                 
-            //if query params are not provided correctly, an error is sent back
-            } else {
+        if( parseInt(long) && parseInt(latt) ) {
 
-                var msg = httpMessage["400"].incorrectQueryParam;
-                res.status(400, contentTypeJson).send({message :msg});
+            longittude = parseInt(long);
+            lattitude = parseInt(latt);
+            maxDistance = parseInt(perimeter);
+
+            var query = {
+
+                gpsCoordinates: {
+                    $near: [longittude, lattitude],
+                    $maxDistance: maxDistance
+                }
 
             }
 
-        } catch (error) {
+            try {
+                
+                Pharmacie.find( query,(error, doc) => {
 
-            var msg = httpMessage["500"].somethingWrong;
-            res.status(500, contentTypeJson).send( { message : msg } );
-            console.log(error);
+                    if( error ){
+
+                        var msg = httpMessage["500"].somethingWrong;
+                        res.status(500, contentTypeJson).send( { message : msg } );
+                        console.log({error:{msg: error.message, stack: error.stack}});  
+
+                    }else if( doc.length < 1 ){
+
+                        var msg = httpMessage["404"].noPharmacieAround;
+                        res.status(404, contentTypeJson).send({message :msg});
                         
-        }
+                    }else if ( doc ) {
 
-        
+                        var msg = httpMessage["200"].searchSucess;
+                        res.status(200, contentTypeJson).send({message :msg, doc});
+
+                    }
+
+                });
+
+            } catch (error) {
+                
+                res.status(500, contentTypeJson).send( { message : msg } );
+            }
+            
+        } else {
+
+            var msg = httpMessage["400"].incorrectQueryParam;
+            res.status(400, contentTypeJson).send({message :msg});
+
+        }
 
         
         
