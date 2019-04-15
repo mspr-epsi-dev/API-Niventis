@@ -15,7 +15,7 @@ services:
       - mspr-srve
 
   mongo: 
-    image: mongo
+    image: mongo:4.0.8
     container_name: mspr-srve-api-database
     ports:
       - '27017:27017'

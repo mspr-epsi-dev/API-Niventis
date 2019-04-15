@@ -19,11 +19,11 @@ module.exports = {
 
             var pharmacie = new Pharmacie(body);
         
-            pharmacie.save((err, doc) => {
+            pharmacie.save((error, doc) => {
         
-                if(err){
+                if(error){
         
-                    if(err.name){
+                    if(error.name){
 
                         var msg = httpMessage["400"].missformedRessource;
                         res.status(400, contentTypeJson).send({message :msg});
@@ -39,11 +39,11 @@ module.exports = {
         
             });
 
-        } catch (error) {
+        } catch (erroror) {
             
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});
 
 
         }
@@ -60,13 +60,13 @@ module.exports = {
 
         try {
             
-            Pharmacie.find({}, (error, doc) => {
+            Pharmacie.find({}, (erroror, doc) => {
 
-                if(error){
+                if(erroror){
         
                     var msg = httpMessage["500"].somethingWrong;
                     res.status(500, contentTypeJson).send( { message : msg } );
-                    console.log({error:{msg: error.message, stack: error.stack}});
+                    console.log({erroror:{msg: erroror.message, stack: erroror.stack}});
         
                 }else{
                     
@@ -84,11 +84,11 @@ module.exports = {
         
             })
 
-        } catch (error) {
+        } catch (erroror) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});
 
         }
 
@@ -105,9 +105,9 @@ module.exports = {
 
         try {
             
-            Pharmacie.findById(id, (err,doc) => {
+            Pharmacie.findById(id, (error,doc) => {
 
-                if(err){
+                if(error){
     
                     var msg = httpMessage["400"].missformedId;
                     res.status(400, contentTypeJson).send({message :msg});
@@ -129,11 +129,11 @@ module.exports = {
     
             });
             
-        } catch (error) {
+        } catch (erroror) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});        
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});        
 
         }
         
@@ -149,9 +149,9 @@ module.exports = {
         try {
             
             //first check if the id exist on database
-            Pharmacie.findById(id, (err,doc) => {
+            Pharmacie.findById(id, (error,doc) => {
 
-                if(err){
+                if(error){
 
                     var msg = httpMessage["400"].missformedId;
                     res.status(400, contentTypeJson).send({message :msg});
@@ -164,9 +164,9 @@ module.exports = {
                 } else {
 
                     //if the id exist, it's updated
-                    Pharmacie.findOneAndUpdate(id, req.body,{new: true}, (err, doc) => {
+                    Pharmacie.findOneAndUpdate(id, req.body,{new: true}, (error, doc) => {
 
-                        if(err){
+                        if(error){
             
                             var msg = httpMessage["500"].somethingWrong;
                             res.status(500, contentTypeJson).send({message :msg});
@@ -206,11 +206,11 @@ module.exports = {
 
             });
 
-        } catch (error) {
+        } catch (erroror) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});  
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});  
             
         }
     },
@@ -224,12 +224,12 @@ module.exports = {
 
         try {
             
-            Pharmacie.findOneAndDelete({_id: id}, (err, doc) => {
+            Pharmacie.findOneAndDelete({_id: id}, (error, doc) => {
 
-                if(err) {
+                if(error) {
         
                     var msg = httpMessage["400"].missformedId;
-                    res.status(400, contentTypeJson).send({message :msg, error : err});
+                    res.status(400, contentTypeJson).send({message :msg, erroror : error});
         
                 } else {
         
@@ -248,11 +248,11 @@ module.exports = {
                 }
             });
 
-        } catch (error) {
+        } catch (erroror) {
             
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});  
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});  
             
         }
 
@@ -265,58 +265,72 @@ module.exports = {
      * @perimter perimeter: limit perimeter of the research
      * @Return JSON array (pharmacies around)
      */
-    locatePharmacie : (long, latt, perimeter, res) => {
-                
-        if( parseInt(long) && parseInt(latt) ) {
+    locatePharmacie : (long, latt, perimeter, res) => {         
 
-            longittude = parseInt(long);
-            lattitude = parseInt(latt);
-            maxDistance = parseInt(perimeter);
-
-            var query = {
-
-                gpsCoordinates: {
-                    $near: [longittude, lattitude],
-                    $maxDistance: maxDistance
-                }
-
-            }
-
-            try {
-                
-                Pharmacie.find( query,(error, doc) => {
-
-                    if( error ){
-
-                        var msg = httpMessage["500"].somethingWrong;
-                        res.status(500, contentTypeJson).send( { message : msg } );
-                        console.log({error:{msg: error.message, stack: error.stack}});  
-
-                    }else if( doc.length < 1 ){
-
-                        var msg = httpMessage["404"].noPharmacieAround;
-                        res.status(404, contentTypeJson).send({message :msg});
-                        
-                    }else if ( doc ) {
-
-                        var msg = httpMessage["200"].searchSucess;
-                        res.status(200, contentTypeJson).send({message :msg, doc});
-
-                    }
-
-                });
-
-            } catch (error) {
-                
-                res.status(500, contentTypeJson).send( { message : msg } );
-            }
+        try {
             
-        } else {
+            //verify if query params are provided
+            if( parseInt(long) && parseInt(latt) ) {
 
-            var msg = httpMessage["400"].incorrectQueryParam;
-            res.status(400, contentTypeJson).send({message :msg});
+                longittude = parseInt(long);
+                lattitude = parseInt(latt);
+                maxDistance = parseInt(perimeter);
 
+                try {
+
+                    Pharmacie.aggregate([{
+
+                        "$geoNear": {
+                            "near": [longittude,lattitude],
+                            "distanceField": "distance",
+                            "maxDistance": maxDistance,
+                            "query": { }
+                        }
+
+                    }], (error, doc) =>{
+
+                        if(error){
+
+                            var msg = httpMessage["500"].somethingWrong;
+                            res.status(500, contentTypeJson).send( { message : msg } );
+                            console.log({error:{msg: error.message, stack: error.stack}});  
+
+                        } else if (doc.length < 1) {
+                            
+                            var msg = httpMessage["404"].noPharmacieAround;
+                            res.status(404, contentTypeJson).send( { message :msg, doc } );
+                            
+                        } else if (doc.length > 0) {
+
+                            var msg = httpMessage["200"].searchSucess;
+                            res.status(200, contentTypeJson).send( { message :msg, doc } );
+
+                        }
+
+                    })
+
+                } catch (erroror) {
+                    
+                    res.status(500, contentTypeJson).send( { message : msg } );
+                }
+                
+            //if query params are not provided correctly, an erroror is sent back
+            } else {
+
+                var msg = httpMessage["400"].incorrectQueryParam;
+                res.status(400, contentTypeJson).send({message :msg});
+
+            }
+
+        } catch (erroror) {
+
+            var msg = httpMessage["500"].somethingWrong;
+            res.status(500, contentTypeJson).send( { message : msg } );
+            console.log(erroror);
+                        
         }
+
+        
 
         
         

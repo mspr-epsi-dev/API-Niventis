@@ -23,7 +23,7 @@
       "application/json"
     ],
     "paths": {
-      "/Pharmacies": {
+      "/pharmacies": {
         "post": {
           "tags": [
             "Pharmacie"
@@ -35,7 +35,7 @@
               "in": "body",
               "description": "Pharmacie that we want to create",
               "schema": {
-                "$ref": "#/definitions/Pharmacie"
+                "$ref": "#/definitions/harmacie"
               }
             }
           ],
@@ -66,7 +66,7 @@
           }
         }
       },
-      "/Pharmacie/{pharmacieId}": {
+      "/pharmacies/{pharmacieId}": {
         "parameters": [
           {
             "name": "pharmacieId",
@@ -128,6 +128,57 @@
             }
           }
         }
+      },
+      "/localisation": {
+        "get": {
+          "tags": [
+            "Pharmacie"
+          ],
+          "description": "parameters to found pharmacies near the lattitude and longitude parameters ",
+          "parameters": [
+            {
+              "name": "long",
+              "in": "query",
+              "description": "longitude",
+              "type": "number",
+              "format": "float",
+              "schema": {
+                "$ref": "#/definitions/Pharmacie"
+              }
+            },
+            {
+              "name": "latt",
+              "in": "query",
+              "description": "lattitude",
+              "type": "number",
+              "format": "float",
+              "schema": {
+                "$ref": "#/definitions/Pharmacie"
+              }
+            },
+            {
+              "name": "perim",
+              "in": "query",
+              "description": "perimeter of the research in km",
+              "type": "number",
+              "format": "float",
+              "schema": {
+                "$ref": "#/definitions/Pharmacie"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Pharmacie found !",
+              "schema": {
+                "$ref": "#/definitions/Pharmacie"
+              }
+            }
+          }
+        }
       }
     },
     "definitions": {
@@ -148,27 +199,22 @@
             "type":"object",
             "properties":{
               "nbr" : {
-                "type": "int"
+                "type": "number"
               },
               "street" : {
                 "type" : "string"
               },
               "zipCode" :{
-                "type": "int"
+                "type": "number"
               },
               "city" : {
                 "type": "string"
               }
             }
           },
-          "lattitude": {
-            "type": "float"
-          },
-          "longitude": {
-            "type": "float"
-          },
           "turnover": {
-            "type": "float"
+            "type": "number",
+            "format": "float"
           },
           "traningNeed": {
             "type": "string"
@@ -182,13 +228,24 @@
                   "type": "string"
                 },
                 "quantityBoughtPerMonth":{
-                  "type": "float"
+                  "type": "number",
+                  "format": "float"
                 },
                 "price": {
-                  "type": "float"
+                  "type": "number",
+                  "format": "float"
                 }
               }
             }       
+          },
+          "gpsCoordinate [long, latt]": {
+            "type": "array",
+            "items":{
+              "type": "number",
+              "format": "float"
+            },
+            "minItems": 2,
+            "maxItems": 2
           }
         }
       }
