@@ -19,11 +19,11 @@ module.exports = {
 
             var pharmacie = new Pharmacie(body);
         
-            pharmacie.save((err, doc) => {
+            pharmacie.save((error, doc) => {
         
-                if(err){
+                if(error){
         
-                    if(err.name){
+                    if(error.name){
 
                         var msg = httpMessage["400"].missformedRessource;
                         res.status(400, contentTypeJson).send({message :msg});
@@ -39,11 +39,11 @@ module.exports = {
         
             });
 
-        } catch (error) {
+        } catch (erroror) {
             
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});
 
 
         }
@@ -60,13 +60,13 @@ module.exports = {
 
         try {
             
-            Pharmacie.find({}, (error, doc) => {
+            Pharmacie.find({}, (erroror, doc) => {
 
-                if(error){
+                if(erroror){
         
                     var msg = httpMessage["500"].somethingWrong;
                     res.status(500, contentTypeJson).send( { message : msg } );
-                    console.log({error:{msg: error.message, stack: error.stack}});
+                    console.log({erroror:{msg: erroror.message, stack: erroror.stack}});
         
                 }else{
                     
@@ -84,11 +84,11 @@ module.exports = {
         
             })
 
-        } catch (error) {
+        } catch (erroror) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});
 
         }
 
@@ -105,9 +105,9 @@ module.exports = {
 
         try {
             
-            Pharmacie.findById(id, (err,doc) => {
+            Pharmacie.findById(id, (error,doc) => {
 
-                if(err){
+                if(error){
     
                     var msg = httpMessage["400"].missformedId;
                     res.status(400, contentTypeJson).send({message :msg});
@@ -129,11 +129,11 @@ module.exports = {
     
             });
             
-        } catch (error) {
+        } catch (erroror) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});        
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});        
 
         }
         
@@ -149,9 +149,9 @@ module.exports = {
         try {
             
             //first check if the id exist on database
-            Pharmacie.findById(id, (err,doc) => {
+            Pharmacie.findById(id, (error,doc) => {
 
-                if(err){
+                if(error){
 
                     var msg = httpMessage["400"].missformedId;
                     res.status(400, contentTypeJson).send({message :msg});
@@ -164,9 +164,9 @@ module.exports = {
                 } else {
 
                     //if the id exist, it's updated
-                    Pharmacie.findOneAndUpdate(id, req.body,{new: true}, (err, doc) => {
+                    Pharmacie.findOneAndUpdate(id, req.body,{new: true}, (error, doc) => {
 
-                        if(err){
+                        if(error){
             
                             var msg = httpMessage["500"].somethingWrong;
                             res.status(500, contentTypeJson).send({message :msg});
@@ -206,11 +206,11 @@ module.exports = {
 
             });
 
-        } catch (error) {
+        } catch (erroror) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});  
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});  
             
         }
     },
@@ -224,12 +224,12 @@ module.exports = {
 
         try {
             
-            Pharmacie.findOneAndDelete({_id: id}, (err, doc) => {
+            Pharmacie.findOneAndDelete({_id: id}, (error, doc) => {
 
-                if(err) {
+                if(error) {
         
                     var msg = httpMessage["400"].missformedId;
-                    res.status(400, contentTypeJson).send({message :msg, error : err});
+                    res.status(400, contentTypeJson).send({message :msg, erroror : error});
         
                 } else {
         
@@ -248,11 +248,11 @@ module.exports = {
                 }
             });
 
-        } catch (error) {
+        } catch (erroror) {
             
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({error:{msg: error.message, stack: error.stack}});  
+            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});  
             
         }
 
@@ -276,15 +276,6 @@ module.exports = {
                 lattitude = parseInt(latt);
                 maxDistance = parseInt(perimeter);
 
-                var query = {
-
-                    gpsCoordinates: {
-                        $near: [longittude, lattitude],
-                        $maxDistance: maxDistance
-                    }
-
-                }
-
                 try {
 
                     Pharmacie.aggregate([{
@@ -296,9 +287,9 @@ module.exports = {
                             "query": { }
                         }
 
-                    }], (err, doc) =>{
+                    }], (error, doc) =>{
 
-                        if(err){
+                        if(error){
 
                             var msg = httpMessage["500"].somethingWrong;
                             res.status(500, contentTypeJson).send( { message : msg } );
@@ -318,12 +309,12 @@ module.exports = {
 
                     })
 
-                } catch (error) {
+                } catch (erroror) {
                     
                     res.status(500, contentTypeJson).send( { message : msg } );
                 }
                 
-            //if query params are not provided correctly, an error is sent back
+            //if query params are not provided correctly, an erroror is sent back
             } else {
 
                 var msg = httpMessage["400"].incorrectQueryParam;
@@ -331,11 +322,11 @@ module.exports = {
 
             }
 
-        } catch (error) {
+        } catch (erroror) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log(error);
+            console.log(erroror);
                         
         }
 

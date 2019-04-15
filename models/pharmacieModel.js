@@ -18,7 +18,7 @@ const pharmacieSchema = new Schema({
     productBought: [Product],
     gpsCoordinates:{
         type: [Number],
-        index: "2dsphere"
+        index: "2d"
     }
 
 });

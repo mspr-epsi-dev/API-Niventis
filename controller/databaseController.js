@@ -20,7 +20,7 @@ module.exports = {
             mongoUrl = init.mongodbDev;
 
         }
-
+        
 
         mongoose.connect(mongoUrl, {useNewUrlParser: true});
         
