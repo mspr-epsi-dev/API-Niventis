@@ -1,6 +1,6 @@
 const Pharmacie = require('../models/pharmacieModel');
 const httpMessage = require('../init/httpMessages');
-const pharmacieMockup = require('../test/pharmacieMockup.json')
+const pharmacieMockup = require('../test/pharmacieTest/pharmacieMockup.json')
 const contentTypeJson = {"Content-Type": "application/json"};
 
 
@@ -16,7 +16,7 @@ module.exports = {
     savePharmacie : (body, res) => {
         
         try {
-
+            
             var pharmacie = new Pharmacie(body);
         
             pharmacie.save((error, doc) => {

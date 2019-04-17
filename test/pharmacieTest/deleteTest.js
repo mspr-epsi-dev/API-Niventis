@@ -1,10 +1,10 @@
 process.env.NODE_ENV = 'test';
 
-const httpMessage = require('../init/httpMessages');
+const httpMessage = require('../../init/httpMessages');
 const chaiHttp = require ('chai-http');
-const app = require ('../bin/app');
+const app = require ('../../bin/app');
 const pharmacieMockup = require('./pharmacieMockup.json');
-const routes = require('../init/routes');
+const routes = require('../../init/routes');
 
 const chai = require('chai');
 const expect = chai.expect;

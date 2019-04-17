@@ -28,6 +28,7 @@
           "tags": [
             "Pharmacie"
           ],
+          "summary": "save pharmacie to database",
           "description": "Create new pharmacie",
           "parameters": [
             {
@@ -55,7 +56,7 @@
           "tags": [
             "Pharmacie"
           ],
-          "summary": "Get all pharmacie in system",
+          "summary": "Get all pharmacies in database",
           "responses": {
             "200": {
               "description": "OK",
@@ -134,6 +135,7 @@
           "tags": [
             "Pharmacie"
           ],
+          "summary":"find pharmacies around gps coordinates specified in query params",
           "description": "parameters to found pharmacies near the lattitude and longitude parameters ",
           "parameters": [
             {
