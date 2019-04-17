@@ -4,10 +4,8 @@ const Schema = mongoose.Schema;
 const qcmSchema = new Schema({
 
     libelle: String,
-    answer: String
+    answers: [String]
 
 });
 
-const qcm = mongoose.model('qcm', qcmSchema);
-
-module.exports = qcm;
+module.exports = qcmSchema;

@@ -4,16 +4,15 @@ const openQuestion = require('./openQuestionModel');
 const qcmQuestion = require('./openQuestionModel');
 
 const formularSchema = new Schema({
-
-    participant : {
-        id: {
-            type: String,
-            required: true
-        },
-        date: { type: Date, default: Date.now },
-        openQuestion: [openQuestion],
-        qcmQuestion: [qcmQuestion]
-    }
+    
+    participantId: {
+        type: String,
+        required: true
+    },
+    date: { type: Date, default: Date.now },
+    openQuestion: [openQuestion],
+    qcmQuestion: [qcmQuestion]
+    
 
 });
 

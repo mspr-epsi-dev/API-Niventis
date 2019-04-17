@@ -1,4 +1,4 @@
-const Pharmacie = require('../models/pharmacieModel');
+const Pharmacie = require('../models/pharmacieModel/pharmacieModel');
 const httpMessage = require('../init/httpMessages');
 const pharmacieMockup = require('../test/pharmacieTest/pharmacieMockup.json')
 const contentTypeJson = {"Content-Type": "application/json"};
@@ -39,11 +39,11 @@ module.exports = {
         
             });
 
-        } catch (erroror) {
+        } catch (error) {
             
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});
+            console.log({error:{msg: error.message, stack: error.stack}});
 
 
         }
@@ -60,13 +60,13 @@ module.exports = {
 
         try {
             
-            Pharmacie.find({}, (erroror, doc) => {
+            Pharmacie.find({}, (error, doc) => {
 
-                if(erroror){
+                if(error){
         
                     var msg = httpMessage["500"].somethingWrong;
                     res.status(500, contentTypeJson).send( { message : msg } );
-                    console.log({erroror:{msg: erroror.message, stack: erroror.stack}});
+                    console.log({error:{msg: error.message, stack: error.stack}});
         
                 }else{
                     
@@ -84,11 +84,11 @@ module.exports = {
         
             })
 
-        } catch (erroror) {
+        } catch (error) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});
+            console.log({error:{msg: error.message, stack: error.stack}});
 
         }
 
@@ -129,11 +129,11 @@ module.exports = {
     
             });
             
-        } catch (erroror) {
+        } catch (error) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});        
+            console.log({error:{msg: error.message, stack: error.stack}});        
 
         }
         
@@ -206,11 +206,11 @@ module.exports = {
 
             });
 
-        } catch (erroror) {
+        } catch (error) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});  
+            console.log({error:{msg: error.message, stack: error.stack}});  
             
         }
     },
@@ -229,7 +229,7 @@ module.exports = {
                 if(error) {
         
                     var msg = httpMessage["400"].missformedId;
-                    res.status(400, contentTypeJson).send({message :msg, erroror : error});
+                    res.status(400, contentTypeJson).send({message :msg, error : error});
         
                 } else {
         
@@ -248,11 +248,11 @@ module.exports = {
                 }
             });
 
-        } catch (erroror) {
+        } catch (error) {
             
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log({erroror:{msg: erroror.message, stack: erroror.stack}});  
+            console.log({error:{msg: error.message, stack: error.stack}});  
             
         }
 
@@ -309,12 +309,12 @@ module.exports = {
 
                     })
 
-                } catch (erroror) {
+                } catch (error) {
                     
                     res.status(500, contentTypeJson).send( { message : msg } );
                 }
                 
-            //if query params are not provided correctly, an erroror is sent back
+            //if query params are not provided correctly, an error is sent back
             } else {
 
                 var msg = httpMessage["400"].incorrectQueryParam;
@@ -322,11 +322,11 @@ module.exports = {
 
             }
 
-        } catch (erroror) {
+        } catch (error) {
 
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
-            console.log(erroror);
+            console.log(error);
                         
         }
 

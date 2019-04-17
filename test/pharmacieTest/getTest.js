@@ -4,7 +4,7 @@ const httpMessage = require('../../init/httpMessages');
 const chaiHttp = require ('chai-http');
 const app = require ('../../bin/app');
 const pharmacieMockup = require('./pharmacieMockup.json');
-const PharmacieModel = require('../../models/pharmacieModel');
+const PharmacieModel = require('../../models/pharmacieModel/pharmacieModel');
 const routes = require('../../init/routes');
 
 const chai = require('chai');
