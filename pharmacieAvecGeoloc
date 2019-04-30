@@ -1,0 +1,151 @@
+[
+	{
+	    
+	    "name": "Pharmacie du jeu de Paume",
+	    "adress": {
+		"nbr": 34,
+		"street": "Boulevard du jeu de Paume",
+		"zipCode": 34000,
+		"city": "Montpellier"
+	    },
+	    "turnover": 150000,
+	    "trainingNeed": "technique de vente",
+	    "productBought" : [
+		{
+		    "productName": "efferalgans",
+		    "quantityBoughtPerMonth": 200,
+		    "productPrice": 25
+		},
+		{
+		    "productName": "daffalgans",
+		    "quantityBoughtPerMonth": 165,
+		    "productPrice": 32
+		}
+	    ],
+	    "pharmacieCoordinates": {
+		"type": "Point",
+		"coordinates": [43.606808, 3.875539]
+	    }
+
+	}
+
+	{
+	    
+	    "name": "Pharmacie de l'observatoire",
+	    "adress": {
+		"nbr": 4,
+		"street": "Boulevard de l'Observatoire",
+		"zipCode": 34000,
+		"city": "Montpellier"
+	    },
+	    "turnover": 150000,
+	    "trainingNeed": "technique de vente",
+	    "productBought" : [
+		{
+		    "productName": "efferalgans",
+		    "quantityBoughtPerMonth": 200,
+		    "productPrice": 25
+		},
+		{
+		    "productName": "daffalgans",
+		    "quantityBoughtPerMonth": 165,
+		    "productPrice": 32
+		}
+	    ],
+	    "pharmacieCoordinates": {
+		"type": "Point",
+		"coordinates": [43.606549, 3.876162]
+	    }
+
+	}
+
+	{
+	    
+	    "name": "Pharmacie de la Babotte",
+	    "adress": {
+		"nbr": 4,
+		"street": "Place Alexandre Laissac",
+		"zipCode": 34000,
+		"city": "Montpellier"
+	    },
+	    "turnover": 150000,
+	    "trainingNeed": "technique de vente",
+	    "productBought" : [
+		{
+		    "productName": "efferalgans",
+		    "quantityBoughtPerMonth": 200,
+		    "productPrice": 25
+		},
+		{
+		    "productName": "daffalgans",
+		    "quantityBoughtPerMonth": 165,
+		    "productPrice": 32
+		}
+	    ],
+	    "pharmacieCoordinates": {
+		"type": "Point",
+		"coordinates": [110, 2]
+	    }
+
+	}
+
+	{
+	    
+	    "name": "Pharmacie du petit village",
+	    "adress": {
+		"nbr": 6,
+		"street": "Place de la République",
+		"zipCode": 34200,
+		"city": "Paulhan"
+	    },
+	    "turnover": 150000,
+	    "trainingNeed": "technique de vente",
+	    "productBought" : [
+		{
+		    "productName": "efferalgans",
+		    "quantityBoughtPerMonth": 200,
+		    "productPrice": 25
+		},
+		{
+		    "productName": "daffalgans",
+		    "quantityBoughtPerMonth": 165,
+		    "productPrice": 32
+		}
+	    ],
+	    "pharmacieCoordinates": {
+		"type": "Point",
+		"coordinates": [-78, 35.791]
+	    }
+
+	}
+
+	{
+	    
+	    "name": "Pharmacie du petit village",
+	    "adress": {
+		"nbr": 6,
+		"street": "Place de la République",
+		"zipCode": 34200,
+		"city": "Paulhan"
+	    },
+	    "turnover": 150000,
+	    "trainingNeed": "technique de vente",
+	    "productBought" : [
+		{
+		    "productName": "efferalgans",
+		    "quantityBoughtPerMonth": 200,
+		    "productPrice": 25
+		},
+		{
+		    "productName": "daffalgans",
+		    "quantityBoughtPerMonth": 165,
+		    "productPrice": 32
+		}
+	    ],
+	    "pharmacieCoordinates": {
+		"type": "Point",
+		"coordinates": [-88, 15]
+	    }
+
+	}
+]

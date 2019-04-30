@@ -15,3 +15,5 @@ router.post(routes.formular, (req, res) => {
     formular.saveFormular(body, res);
 
 });
+
+module.exports = router;

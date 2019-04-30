@@ -13,11 +13,6 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-
-const chaiExclude = require('chai-exclude');
-chai.use(chaiExclude);
-
-
 describe('save entity', () => {
 
     it('200 ok', (done) => {
