@@ -19,11 +19,11 @@ module.exports = {
 
             var pharmacie = new Pharmacie(body);
         
-            pharmacie.save((err, doc) => {
+            pharmacie.save((error, doc) => {
         
-                if(err){
+                if(error){
         
-                    if(err.name){
+                    if(error.name){
 
                         var msg = httpMessage["400"].missformedRessource;
                         res.status(400, contentTypeJson).send({message :msg});
@@ -105,9 +105,9 @@ module.exports = {
 
         try {
             
-            Pharmacie.findById(id, (err,doc) => {
+            Pharmacie.findById(id, (error,doc) => {
 
-                if(err){
+                if(error){
     
                     var msg = httpMessage["400"].missformedId;
                     res.status(400, contentTypeJson).send({message :msg});
@@ -149,9 +149,9 @@ module.exports = {
         try {
             
             //first check if the id exist on database
-            Pharmacie.findById(id, (err,doc) => {
+            Pharmacie.findById(id, (error,doc) => {
 
-                if(err){
+                if(error){
 
                     var msg = httpMessage["400"].missformedId;
                     res.status(400, contentTypeJson).send({message :msg});
@@ -164,9 +164,9 @@ module.exports = {
                 } else {
 
                     //if the id exist, it's updated
-                    Pharmacie.findOneAndUpdate(id, req.body,{new: true}, (err, doc) => {
+                    Pharmacie.findOneAndUpdate(id, req.body,{new: true}, (error, doc) => {
 
-                        if(err){
+                        if(error){
             
                             var msg = httpMessage["500"].somethingWrong;
                             res.status(500, contentTypeJson).send({message :msg});
@@ -224,12 +224,12 @@ module.exports = {
 
         try {
             
-            Pharmacie.findOneAndDelete({_id: id}, (err, doc) => {
+            Pharmacie.findOneAndDelete({_id: id}, (error, doc) => {
 
-                if(err) {
+                if(error) {
         
                     var msg = httpMessage["400"].missformedId;
-                    res.status(400, contentTypeJson).send({message :msg, error : err});
+                    res.status(400, contentTypeJson).send({message :msg, error : error});
         
                 } else {
         
@@ -276,15 +276,6 @@ module.exports = {
                 lattitude = parseInt(latt);
                 maxDistance = parseInt(perimeter);
 
-                var query = {
-
-                    gpsCoordinates: {
-                        $near: [longittude, lattitude],
-                        $maxDistance: maxDistance
-                    }
-
-                }
-
                 try {
 
                     Pharmacie.aggregate([{
@@ -296,9 +287,9 @@ module.exports = {
                             "query": { }
                         }
 
-                    }], (err, doc) =>{
+                    }], (error, doc) =>{
 
-                        if(err){
+                        if(error){
 
                             var msg = httpMessage["500"].somethingWrong;
                             res.status(500, contentTypeJson).send( { message : msg } );

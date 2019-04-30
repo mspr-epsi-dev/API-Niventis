@@ -4,7 +4,7 @@ const database = require('../controller/databaseController');
 const router = require('../routes/router');
 const app = require("../server");
 
-const port = 3300;
+const port = 3000;
 
 app.use(require('body-parser').json()); 
 app.use(require('body-parser').urlencoded({ extended: true }));
