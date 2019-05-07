@@ -1,6 +1,5 @@
 {
-    "participantId" : "",
-    "date": "18/12/2018",
+    "participantId" : "5cb67c414eb83c1a7143a488",
     "openQuestion": [
         {
             "libelle" : "quel sont vos meilleurs ventes ?",
@@ -13,21 +12,12 @@
     ],
     "qcmQuestion":[ 
         {
-            "libelle" : "combien avez-vous d'employés ?",
-            "answers" : [
-                "1-5",
-                "5-15",
-                "20-50",
-                "50+"
-            ]
-        },
-        {
             "libelle" : "quelle est votre chiffre d'affaires ?",
             "answers" : [
-                "1k-5k",
-                "5k-15k",
-                "20k-50k",
-                "50k+"
+               {"choix" : "1k-5k", "selected": true},
+               {"choix" : "5k-15k", "selected": false},
+               {"choix" : "20k-50k", "selected": false},
+               {"choix" : "50k+", "selected": false}
             ]
         }
     ]

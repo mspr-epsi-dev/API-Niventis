@@ -14,23 +14,24 @@ module.exports = {
     saveFormular : (body, res) => {
         
         try {
-            
+    
             var formular = new Formular(body);
-        
-            formular.save((error, doc) => {
-        
+
+            formular.save((error, doc) => {                
+
                 if(error){
         
                     if(error.name){
 
                         var msg = httpMessage["400"].missformedRessource;
                         res.status(400, contentTypeJson).send({message :msg});
+                        console.log(error);
                         
                     }
         
                 }else{
 
-                    var msg = httpMessage["200"].saveSuccess;
+                    var msg = httpMessage["200"].saveFormularSucess;
                     res.status(200, contentTypeJson).send({message : msg, doc});
         
                 }
@@ -42,7 +43,6 @@ module.exports = {
             var msg = httpMessage["500"].somethingWrong;
             res.status(500, contentTypeJson).send( { message : msg } );
             console.log({error:{msg: error.message, stack: error.stack}});
-
 
         }
         

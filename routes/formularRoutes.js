@@ -10,7 +10,7 @@ const formular = require('../controller/formularController');
  * @return JSON object 
  */
 router.post(routes.formular, (req, res) => {
-   
+
     var body = req.body;
     formular.saveFormular(body, res);
 

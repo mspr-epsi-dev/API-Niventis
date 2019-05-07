@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const openQuestion = require('./openQuestionModel');
-const qcmQuestion = require('./openQuestionModel');
+const qcmQuestion = require('./qcmQuestionModel');
 
 const formularSchema = new Schema({
     
@@ -10,9 +10,8 @@ const formularSchema = new Schema({
         required: true
     },
     date: { type: Date, default: Date.now },
-    openQuestion: [openQuestion],
-    qcmQuestion: [qcmQuestion]
-    
+    openQuestion: [ openQuestion ],
+    qcmQuestion: [ qcmQuestion ]
 
 });
 

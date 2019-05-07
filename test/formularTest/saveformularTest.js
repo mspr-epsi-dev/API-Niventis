@@ -29,6 +29,8 @@ describe('save formular', () => {
 
             if(err){
 
+                console.log(err);
+                
                 done(err);
 
             }else{
@@ -36,16 +38,16 @@ describe('save formular', () => {
                 should.exist(res.body);
                 res.should.have.status(200);
                 res.body.doc.should.be.a('object');
-                res.body.doc.should.have.property('message');
                 res.body.doc.should.have.property('participantId');                
                 res.body.doc.should.have.property('date');
                 res.body.doc.should.have.property('openQuestion');
-                res.body.doc.openQuestion.should.be.a('object');
+                res.body.doc.openQuestion.should.be.a('array');
                 res.body.doc.openQuestion[0].should.have.property('libelle');
                 res.body.doc.openQuestion[0].should.have.property('answer');
                 res.body.doc.should.have.property('qcmQuestion');
+                res.body.doc.qcmQuestion.should.be.a('array');
                 res.body.doc.qcmQuestion[0].should.have.property('libelle');
-                res.body.doc.qcmQuestion[0].should.have.property('answer');
+                res.body.doc.qcmQuestion[0].should.have.property('answers');
                 done();
 
             }
