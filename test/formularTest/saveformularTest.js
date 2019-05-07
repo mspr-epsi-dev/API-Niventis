@@ -28,8 +28,6 @@ describe('save formular', () => {
         .end((err, res,  body) => {
 
             if(err){
-
-                console.log(err);
                 
                 done(err);
 

@@ -16,4 +16,40 @@ router.post(routes.formular, (req, res) => {
 
 });
 
+/**
+ * get all formulars
+ * GET request
+ * @return Json object with all formulars in database
+ */
+router.get(routes.formular, (req, res) => {
+    
+    formular.getAllFormulars(res);
+
+});
+
+/**
+ * get formular by id
+ * GET request
+ * @PathParameter id of the targeted formular
+ * @Return JSON object with formular entity targeted
+ */
+router.get(routes.formular + "/:id", (req, res) => {
+    
+    var id = req.params.id;
+    formular.getFormularById(id, res);
+
+});
+
+/**
+ * delete formular
+ * DELETE request
+ * @PathParam id of the targeted entity to delete
+ * @return JSON object with confirmation message
+ */
+router.delete(routes.formular + "/:id", (req,res) => {
+
+    var id = req.params.id;
+    formular.deleteFormular(id, res);
+
+});
 module.exports = router;
