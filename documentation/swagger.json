@@ -5,7 +5,7 @@
       "title": "MSPR dev : Pharmacie database",
       "description": "API exposing CRUD operation to target pharmacie database"
     },
-    "host": "localhost:3000",
+    "host": "http://127.0.0.1:3000",
     "basePath": "/api",
     "tags": [
       {
