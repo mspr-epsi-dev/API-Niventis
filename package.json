@@ -4,8 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+<<<<<<< HEAD
+    "test": "mocha",
+    "server": "node bin/app",
+    "prod": "forever start bin/app --prod"
+=======
     "test": "mocha test/**/*.js",
     "server": "node ./bin/app"
+>>>>>>> cb5d8ff980f8117db0f9ed8cd1cce49beb1222d6
   },
   "author": "alexis brunet",
   "license": "ISC",
