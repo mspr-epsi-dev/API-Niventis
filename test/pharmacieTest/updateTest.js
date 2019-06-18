@@ -18,7 +18,7 @@ const chaiExclude = require('chai-exclude');
 chai.use(chaiExclude);
 
 
-describe('update entity', () => {
+describe('update pharmacie', () => {
 
     it('200 ok', (done) => {
 

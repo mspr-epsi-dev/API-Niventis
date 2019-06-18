@@ -18,7 +18,7 @@ chai.use(chaiHttp);
 const chaiExclude = require('chai-exclude');
 chai.use(chaiExclude);
 
-describe("get all entities", () => {
+describe("get all pharmacies", () => {
 
     before(() => {
         PharmacieModel.deleteMany();

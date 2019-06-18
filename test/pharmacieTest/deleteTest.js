@@ -18,7 +18,7 @@ const chaiExclude = require('chai-exclude');
 chai.use(chaiExclude);
 
 
-describe('delete entity', () => {
+describe('delete pharmacie', () => {
 
     it('200 ok', (done) => {
 

@@ -13,7 +13,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('save entity', () => {
+describe('save pharmacie', () => {
 
     it('200 ok', (done) => {
 
