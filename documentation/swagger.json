@@ -5,7 +5,7 @@
       "title": "MSPR dev : Pharmacie database",
       "description": "API exposing CRUD operation to target pharmacie database"
     },
-    "host": "http://127.0.0.1:3000",
+    "host": "127.0.0.1:3000",
     "basePath": "/api",
     "tags": [
       {
@@ -36,7 +36,7 @@
               "in": "body",
               "description": "Pharmacie that we want to create",
               "schema": {
-                "$ref": "#/definitions/harmacie"
+                "$ref": "#/definitions/Pharmacie"
               }
             }
           ],
