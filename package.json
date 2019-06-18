@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
-    "server": "node bin/app"
+    "test": "mocha test/**/*.js",
+    "server": "node ./bin/app"
   },
   "author": "alexis brunet",
   "license": "ISC",
