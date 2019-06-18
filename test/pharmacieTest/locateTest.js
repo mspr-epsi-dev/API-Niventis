@@ -39,18 +39,17 @@ describe("location of pharmacies around", () => {
                 }else{
                     
                     res.should.have.status(200);
-                    res.body.should.be.a('object');
-                    res.body.doc[0].should.have.property('name');
-                    res.body.doc[0].should.have.property('adress');
-                    res.body.doc[0].should.have.property('trainingNeed');
-                    res.body.doc[0].should.have.property('productBought');
-                    res.body.doc[0].productBought[0].should.have.property('productName');
-                    res.body.doc[0].productBought[0].should.have.property('quantityBoughtPerMonth');
-                    res.body.doc[0].productBought[0].should.have.property('productPrice');
-                    res.body.doc[0].should.have.property('gpsCoordinates');
-                    res.body.doc[0].gpsCoordinates.should.have.length(2);
-                    res.body.doc[0].gpsCoordinates[0].should.be.a('number');
-                    res.body.doc[0].gpsCoordinates[1].should.be.a('number');
+                    res.body.should.be.a('array');
+                    res.body[0].should.have.property('adress');
+                    res.body[0].should.have.property('trainingNeed');
+                    res.body[0].should.have.property('productBought');
+                    res.body[0].productBought[0].should.have.property('productName');
+                    res.body[0].productBought[0].should.have.property('quantityBoughtPerMonth');
+                    res.body[0].productBought[0].should.have.property('productPrice');
+                    res.body[0].should.have.property('gpsCoordinates');
+                    res.body[0].gpsCoordinates.should.have.length(2);
+                    res.body[0].gpsCoordinates[0].should.be.a('number');
+                    res.body[0].gpsCoordinates[1].should.be.a('number');
     
                     done();
 

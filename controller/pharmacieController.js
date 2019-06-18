@@ -302,8 +302,8 @@ module.exports = {
                             
                         } else if (doc.length > 0) {
 
-                            var msg = httpMessage["200"].searchSucess;
-                            res.status(200, contentTypeJson).send( { message :msg, doc } );
+                            
+                            res.status(200, contentTypeJson).send( doc );
 
                         }
 
