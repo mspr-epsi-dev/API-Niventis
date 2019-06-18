@@ -63,6 +63,12 @@
               "schema": {
                 "$ref": "#/definitions/Pharmacie"
               }
+            },
+              "304": {
+                "description": "OK",
+                "schema": {
+                  "$ref": "#/definitions/Pharmacie"
+                }
             }
           }
         }
