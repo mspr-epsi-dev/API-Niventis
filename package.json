@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "server": "node bin/app"
+    "server": "node bin/app",
+    "prod": "forever start bin/app --prod"
   },
   "author": "alexis brunet",
   "license": "ISC",
