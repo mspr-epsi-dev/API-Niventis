@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const route = require('../init/routes');
+const routes = require('../init/routes');
 const pharmacie = require('../controller/pharmacieController');
 
 /**
@@ -9,7 +9,7 @@ const pharmacie = require('../controller/pharmacieController');
  * @body (req.body) : JSON object
  * @return JSON object 
  */
-router.post(route.pharmacies, (req, res) => {
+router.post(routes.pharmacies, (req, res) => {
    
     var body = req.body;
     pharmacie.savePharmacie(body, res);
@@ -21,7 +21,7 @@ router.post(route.pharmacies, (req, res) => {
  * GET request
  * @return Json object with all pharmacies in database
  */
-router.get(route.pharmacies, (req, res) => {
+router.get(routes.pharmacies, (req, res) => {
     
     pharmacie.getAllPharmacies(res);
 
@@ -33,7 +33,7 @@ router.get(route.pharmacies, (req, res) => {
  * @PathParameter id of the targeted pharmacie
  * @Return JSON object with pharmacie entity targeted
  */
-router.get(route.pharmacies + "/:id", (req, res) => {
+router.get(routes.pharmacies + "/:id", (req, res) => {
     
     var id = req.params.id;
     pharmacie.getPharmacieById(id, res);
@@ -46,7 +46,7 @@ router.get(route.pharmacies + "/:id", (req, res) => {
  * @PathParam id of the targeted entity to update
  * @return JSON object with the updated entity
  */
-router.put(route.pharmacies + "/:id", (req, res) => {
+router.put(routes.pharmacies + "/:id", (req, res) => {
 
     var id = req.params.id
     pharmacie.updatePharmacie(id, req, res);
@@ -59,7 +59,7 @@ router.put(route.pharmacies + "/:id", (req, res) => {
  * @PathParam id of the targeted entity to delete
  * @return JSON object with confirmation message
  */
-router.delete(route.pharmacies + "/:id", (req,res) => {
+router.delete(routes.pharmacies + "/:id", (req,res) => {
 
     var id = req.params.id;
     pharmacie.deletePharmacie(id, res);

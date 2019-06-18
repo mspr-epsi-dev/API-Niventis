@@ -1,0 +1,27 @@
+{
+    
+    "name": "Pharmacie du petit village",
+    "adress": {
+        "nbr": 6,
+        "street": "Place de la République",
+        "zipCode": 34200,
+        "city": "Paulhan"
+    },
+    "turnover": 150000,
+    "trainingNeed": "technique de vente",
+    "productBought" : [
+        {
+            "productName": "efferalgans",
+            "quantityBoughtPerMonth": 200,
+            "productPrice": 25
+        },
+        {
+            "productName": "daffalgans",
+            "quantityBoughtPerMonth": 165,
+            "productPrice": 32
+        }
+    ],
+    "gpsCoordinates": [-80, 25.791]
+
+
+}

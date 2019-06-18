@@ -1,0 +1,24 @@
+{
+    "participantId" : "5cb67c414eb83c1a7143a488",
+    "openQuestion": [
+        {
+            "libelle" : "quel sont vos meilleurs ventes ?",
+            "answer" : "Dolipranes"
+        },
+        {
+            "libelle" : "sur quels produits faite-vous vos plus grosses marges ?",
+            "answer" : "Daphalgans"
+        }
+    ],
+    "qcmQuestion":[ 
+        {
+            "libelle" : "quelle est votre chiffre d'affaires ?",
+            "answers" : [
+               {"choix" : "1k-5k", "selected": true},
+               {"choix" : "5k-15k", "selected": false},
+               {"choix" : "20k-50k", "selected": false},
+               {"choix" : "50k+", "selected": false}
+            ]
+        }
+    ]
+}
