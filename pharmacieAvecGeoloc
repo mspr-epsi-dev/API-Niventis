@@ -24,7 +24,7 @@
 	    ],
 	    "pharmacieCoordinates": {
 		"type": "Point",
-		"coordinates": [43.606808, 3.875539]
+		"coordinates": [3.875539, 43.606808]
 	    }
 
 	}
@@ -54,7 +54,7 @@
 	    ],
 	    "pharmacieCoordinates": {
 		"type": "Point",
-		"coordinates": [43.606549, 3.876162]
+		"coordinates": [3.876162, 43.606549]
 	    }
 
 	}
@@ -84,7 +84,7 @@
 	    ],
 	    "pharmacieCoordinates": {
 		"type": "Point",
-		"coordinates": [110, 2]
+		"coordinates": [3.8765399999999772, 43.6059]
 	    }
 
 	}
@@ -114,19 +114,19 @@
 	    ],
 	    "pharmacieCoordinates": {
 		"type": "Point",
-		"coordinates": [-78, 35.791]
+		"coordinates": [2.3639584, 48.867542]
 	    }
 
 	}
 
 	{
 	    
-	    "name": "Pharmacie du petit village",
+	    "name": "Pharmacie Lafayette Toulouse",
 	    "adress": {
-		"nbr": 6,
-		"street": "Place de la République",
-		"zipCode": 34200,
-		"city": "Paulhan"
+		"nbr": 35,
+		"street": "Rue Lafayette",
+		"zipCode": 31000,
+		"city": "Toulouse"
 	    },
 	    "turnover": 150000,
 	    "trainingNeed": "technique de vente",
@@ -144,7 +144,37 @@
 	    ],
 	    "pharmacieCoordinates": {
 		"type": "Point",
-		"coordinates": [-88, 15]
+		"coordinates": [1.4464556, 43.6049263]
+	    }
+
+	}
+
+	{
+	    
+	    "name": "Pharmacie Decaroli Saint Barnabé",
+	    "adress": {
+		"nbr": 46,
+		"street": "Avenue de Saint-Barnabé",
+		"zipCode": 13012,
+		"city": "Marseille"
+	    },
+	    "turnover": 150000,
+	    "trainingNeed": "technique de vente",
+	    "productBought" : [
+		{
+		    "productName": "efferalgans",
+		    "quantityBoughtPerMonth": 200,
+		    "productPrice": 25
+		},
+		{
+		    "productName": "daffalgans",
+		    "quantityBoughtPerMonth": 165,
+		    "productPrice": 32
+		}
+	    ],
+	    "pharmacieCoordinates": {
+		"type": "Point",
+		"coordinates": [5.407429999999977, 43.3043]
 	    }
 
 	}
