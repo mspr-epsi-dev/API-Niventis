@@ -135,6 +135,92 @@ module.exports = {
     },
 
     /**
+    * update formular targeted by the id
+    * @id id of the targeted entity
+    * @return JSON object (confirmation message)
+    */
+    updateFormular : (id, req, res) => {
+        
+        try {
+            //check if id have been properly provided
+            if(!id){
+
+                var msg = httpMessage["400"].misingId;
+                res.status(400, contentTypeJson).send({message :msg});
+                
+            }else{
+
+                //first check if the id exist on database
+                Formular.findById(id, (error,doc) => {
+
+                    if(error){
+
+                        var msg = httpMessage["400"].missformedId;
+                        res.status(400, contentTypeJson).send({message :msg});
+
+                    }else if(!doc){
+
+                        var msg = httpMessage["404"].formularNotFound;
+                        res.status(404, contentTypeJson).send({message :msg});
+                        
+                    } else {
+
+                        //if the id exist, it's updated
+                        Formular.findOneAndUpdate(id, req.body,{new: true}, (error, doc) => {
+
+                            if(error){
+                
+                                var msg = httpMessage["500"].somethingWrong;
+                                res.status(500, contentTypeJson).send({message :msg});
+                
+                            } else {
+
+                                var bodyCorrespondingToSchema = true;
+                                
+                                //check if the properties of the json object sent in req.body correspond to the pharmacieMockup
+                                //if not : bodyCorrespondingToSchema => false
+                                for(var property in req.body){
+                                    if( !formularMockup.hasOwnProperty(property) ){
+
+                                        bodyCorrespondingToSchema = false;
+
+                                    }
+                                    
+                                }
+
+                                if(bodyCorrespondingToSchema == false){
+
+                                    var msg = httpMessage["400"].missformedRessource;
+                                    res.status(400, contentTypeJson).send({ message :msg });
+
+                                } else {
+
+                                    var msg = httpMessage["200"].updateSuccess;
+                                    res.status(200, contentTypeJson).send({message :msg, newDocument: doc});
+
+                                }
+                                
+                            }
+                
+                        });
+
+                    }
+
+                });
+
+            }
+            
+
+        } catch (error) {
+
+            var msg = httpMessage["500"].somethingWrong;
+            res.status(500, contentTypeJson).send( { message : msg } );
+            console.log({error:{msg: error.message, stack: error.stack}});  
+            
+        }
+    },
+
+    /**
     * delete formular targeted by the id
     * @id id of the targeted entity
     * @return JSON object (confirmation message)

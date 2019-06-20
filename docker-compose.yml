@@ -1,29 +1,10 @@
 version: '3'
 
 services: 
-  app:
-    depends_on: 
-      - mongo 
-    environment:
-      WAIT_HOSTS: mongo:27017
-    container_name: mspr-srve-api
-    restart: always
-    build: .
-    ports: 
-      - '80:3000'
-    networks:
-      - mspr-srve
-
   mongo: 
     image: mongo:4.0.8
-    container_name: mspr-srve-api-database
+    container_name: mspr-dev
     ports:
       - '27017:27017'
     volumes:
-      - /data/db/mspr-srve:/data/mspr-srve
-    networks:
-      - mspr-srve
-
-networks:
-  mspr-srve:
-    external: true
+      - /docker/db/service-aquarium:/docker/db/service-aquarium

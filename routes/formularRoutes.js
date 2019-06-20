@@ -41,6 +41,19 @@ router.get(routes.formular + "/:id", (req, res) => {
 });
 
 /**
+ * update formular
+ * PUT request
+ * @PathParam id of the targeted formular to update
+ * @return JSON object with the updated formular
+ */
+router.put(routes.formular + "/:id", (req, res) => {
+    
+    var id = req.params.id
+    formular.updateFormular(id, req, res);
+
+});
+
+/**
  * delete formular
  * DELETE request
  * @PathParam id of the targeted entity to delete
@@ -52,4 +65,7 @@ router.delete(routes.formular + "/:id", (req,res) => {
     formular.deleteFormular(id, res);
 
 });
+
+
+
 module.exports = router;

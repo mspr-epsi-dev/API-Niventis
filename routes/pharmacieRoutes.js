@@ -51,7 +51,7 @@ router.put(routes.pharmacies + "/:id", (req, res) => {
     var id = req.params.id
     pharmacie.updatePharmacie(id, req, res);
 
-})
+});
 
 /**
  * delete pharmacie

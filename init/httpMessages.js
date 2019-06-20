@@ -13,7 +13,8 @@ module.exports =  {
     "400": {
         missformedRessource : "the ressource you sent is incorrectly formed",
         missformedId : "incorrect pharmacie id, check the id property",
-        incorrectQueryParam : "incorrect or missing parameters in the http request you sent"
+        incorrectQueryParam : "incorrect or missing parameters in the http request you sent",
+        misingId : "mising id in your request"
     },
     
     "404": {
