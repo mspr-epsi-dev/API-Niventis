@@ -238,13 +238,13 @@
           }
         }
       },
-      "/formular/{formularId}": {
+      "/formular/{pharmacieId}": {
         "parameters": [
           {
-            "name": "formularId",
+            "name": "pharmacieId",
             "in": "path",
             "required": true,
-            "description": "ID of formular that we want to find",
+            "description": "ID of the pharmacie to find its answer to the formular",
             "type": "string"
           }
         ],
@@ -252,7 +252,7 @@
           "tags": [
             "Formular"
           ],
-          "summary": "Get formular with given ID",
+          "summary": "Get formular with given pharmacie ID",
           "responses": {
             "200": {
               "description": "formular found",
@@ -277,7 +277,7 @@
           }
         },
         "put": {
-          "summary": "Update formular with given ID",
+          "summary": "Update formular with pharmacie ID",
           "tags": [
             "Formular"
           ],

@@ -36,7 +36,7 @@ describe('save formular', () => {
                 should.exist(res.body);
                 res.should.have.status(200);
                 res.body.doc.should.be.a('object');
-                res.body.doc.should.have.property('participantId');                
+                res.body.doc.should.have.property('pharmacyId');                
                 res.body.doc.should.have.property('date');
                 res.body.doc.should.have.property('openQuestion');
                 res.body.doc.openQuestion.should.be.a('array');

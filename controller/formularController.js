@@ -95,12 +95,12 @@ module.exports = {
     * @id String : id of the entity
     * @Return JSON object
     */
-    getFormularById : (id, res) => {
+    getFormularById : (pharmacyId, res) => {
 
 
         try {
             
-            Formular.findById(id, (error,doc) => {
+            Formular.findOne({pharmacyId : pharmacyId}, (error,doc) => {
 
                 if(error){
     

@@ -23,7 +23,7 @@ describe("get all formulars", () => {
     before(() => {
         formularModel.deleteMany();
         var formular = new formularModel(formularMockup);
-        formular.save();
+        formular.save();     
     });
 
     it("200 ok", (done) => {
@@ -41,7 +41,7 @@ describe("get all formulars", () => {
                     res.should.have.status(200);
                     res.body.should.be.a('array');
                     res.body[0].should.be.a('object');
-                    res.body[0].should.have.property('participantId');                
+                    res.body[0].should.have.property('pharmacyId');                
                     res.body[0].should.have.property('date');
                     res.body[0].should.have.property('openQuestion');
                     res.body[0].openQuestion.should.be.a('array');
@@ -96,16 +96,14 @@ describe("get formular by id", () => {
 
     before(() => {
         formularModel.deleteMany({});
-        var formular = new formularModel(formularMockup);
-        formular.save();
     });
 
     it("200 ok", (done) => {
 
-        //get all pharmacies to extract one id in order to test getPharmacieById
-        var formularId = "";
+        //get all pharmacies to have a pharmaceiId(formular model contain a pharmacyId)
+        var pharmacyId = "";
         chai.request(app)
-            .get(routes.baseUrl + routes.formular)
+            .get(routes.baseUrl + routes.pharmacies)
             .end((err, res, body) => {
 
                 if(err) {
@@ -113,10 +111,41 @@ describe("get formular by id", () => {
                     done(err);
 
                 } else {
-                    formularId = res.body[0]._id;
-                    
+
+                    var pharmacyId = res.body[0]._id;
+                    //create a formular with a real pharmacyId
+                    var formularTest = {
+                        "pharmacyId" : pharmacyId,
+                        "openQuestion": [
+                            {
+                                "libelle" : "quel sont vos meilleurs ventes ?",
+                                "answer" : "Dolipranes"
+                            },
+                            {
+                                "libelle" : "sur quels produits faite-vous vos plus grosses marges ?",
+                                "answer" : "Daphalgans"
+                            }
+                        ],
+                        "qcmQuestion":[ 
+                            {
+                                "libelle" : "quelle est votre chiffre d'affaires ?",
+                                "answers" : [
+                                   {"choix" : "1k-5k", "selected": true},
+                                   {"choix" : "5k-15k", "selected": false},
+                                   {"choix" : "20k-50k", "selected": false},
+                                   {"choix" : "50k+", "selected": false}
+                                ]
+                            }
+                        ]
+                    }
+
+                    //save formular with a pharmacy id, necessary to find a formular by id
+                    var formular = new formularModel(formularTest);
+                    formular.save();      
+
+                    //search formular with the pharmacyId
                     chai.request(app)
-                    .get( routes.baseUrl + routes.formular + "/" + formularId)
+                    .get( routes.baseUrl + routes.formular + "/" + pharmacyId)
                     .end((err, res, body) => {
 
                         if(err){
@@ -127,7 +156,7 @@ describe("get formular by id", () => {
                             
                             res.should.have.status(200);
                             res.body.should.be.a('object');
-                            res.body.should.have.property('participantId');                
+                            res.body.should.have.property('pharmacyId');                
                             res.body.should.have.property('date');
                             res.body.should.have.property('openQuestion');
                             res.body.openQuestion.should.be.a('array');
@@ -180,7 +209,7 @@ describe("get formular by id", () => {
     it("404 unknow id", (done) => {
 
         //get all formulars to extract one id in order to test getPharmacieById
-        var formularId = "";
+        var pharmacyId = "";
         chai.request(app)
             .get(routes.baseUrl + routes.formular)
             .end((err, res, body) => {
@@ -191,10 +220,10 @@ describe("get formular by id", () => {
 
                 } else {
 
-                    formularId = "4c964557bf0bc7332da8b8ef"
+                    pharmacyId = "4c964557bf0bc7332da8b8ef"
 
                     chai.request(app)
-                    .get( routes.baseUrl + routes.formular + "/" + formularId)
+                    .get( routes.baseUrl + routes.formular + "/" + pharmacyId)
                     .end((err, res, body) => {
 
                         if(err){
@@ -216,109 +245,5 @@ describe("get formular by id", () => {
             })
 
     });
-
-    it('404 no formular found with this id', (done) => {
-
-        var formularId = "";
-
-        //get all formulars to extract one id to delete
-        chai.request(app)
-        .get(routes.baseUrl + routes.formular)
-        .end((err, res,  body) => {
-
-            if(err){
-
-                done(err);
-
-            }else{
-
-                //delete the id to be sure to test an unknow id
-                formularId = res.body[0]._id;
-
-                chai.request(app)
-                .delete(routes.baseUrl + routes.formular + "/" + formularId)
-                .send(formularMockup)
-                .end((err, res,  body) => {
-        
-                    if(err){
-        
-                        done(err);
-        
-                    }else{
-        
-                        res.should.have.status(200);
-                        res.body.should.be.a('object');
-                        res.body.should.have.property('message').eql(httpMessage["200"].deleteFormularSuccess);
-
-                        //check that no pharmacie have been found with this id
-                        chai.request(app)
-                            .get(routes.baseUrl + routes.formular)
-                            .end((err, res, body) => {
-                
-                                if(err) {
-                
-                                    done(err);
-                
-                                } else {
-                
-                                    chai.request(app)
-                                    .get( routes.baseUrl + routes.formular + "/" + formularId)
-                                    .end((err, res, body) => {
-                
-                                        if(err){
-                
-                                            done(err);
-                
-                                        }else{
-                                            
-                                            res.should.have.status(404);
-                                            res.body.should.be.a('object');
-                                            res.body.should.have.property('message').eql(httpMessage["404"].formularNotFound)
-                            
-                                            done();
-                
-                                        }
-                
-                                    });
-                                }
-                            })
-        
-        
-                    }
-                    
-                });
-
-            }
-            
-        });       
-
-    });
-
-    it("400 id malformed", (done) => {
-
-        formularId = "zrezrefzf"
-
-        chai.request(app)
-        .get( routes.baseUrl + routes.formular + "/" + formularId)
-        .end((err, res, body) => {
-
-            if(err){
-
-                done(err);
-
-            }else{
-                
-                res.should.have.status(400);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message').eql(httpMessage["400"].missformedId);
-                
-                done();
-
-            }
-
-        });
-
-    });
-
 
 });
