@@ -5,7 +5,7 @@ const qcmQuestion = require('./qcmQuestionModel');
 
 const formularSchema = new Schema({
     
-    participantId: {
+    pharmacyId: {
         type: String,
         required: true
     },

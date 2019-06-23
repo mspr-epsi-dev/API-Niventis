@@ -187,6 +187,119 @@
             }
           }
         }
+      },
+      "/formular": {
+        "post": {
+          "tags": [
+            "Formular"
+          ],
+          "summary": "save formular to database",
+          "description": "Create new formular",
+          "parameters": [
+            {
+              "name": "formular",
+              "in": "body",
+              "description": "formular that we want to create",
+              "schema": {
+                "$ref": "#/definitions/Formular"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Formular successfuly added !",
+              "schema": {
+                "$ref": "#/definitions/Formular"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Formular"
+          ],
+          "summary": "Get all formulars in database",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Formular"
+              }
+            },
+              "304": {
+                "description": "OK",
+                "schema": {
+                  "$ref": "#/definitions/Formular"
+                }
+            }
+          }
+        }
+      },
+      "/formular/{formularId}": {
+        "parameters": [
+          {
+            "name": "formularId",
+            "in": "path",
+            "required": true,
+            "description": "ID of formular that we want to find",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Formular"
+          ],
+          "summary": "Get formular with given ID",
+          "responses": {
+            "200": {
+              "description": "formular found",
+              "schema": {
+                "$ref": "#/definitions/Formular"
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete formular with given ID",
+          "tags": [
+            "Formular"
+          ],
+          "responses": {
+            "200": {
+              "description": "formular deleted",
+              "schema": {
+                "$ref": "#/definitions/Formular"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update formular with given ID",
+          "tags": [
+            "Formular"
+          ],
+          "parameters": [
+            {
+              "name": "formular",
+              "in": "body",
+              "description": "Formular with new values of properties",
+              "schema": {
+                "$ref": "#/definitions/Formular"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Formular updated",
+              "schema": {
+                "$ref": "#/definitions/Formular"
+              }
+            }
+          }
+        }
       }
     },
     "definitions": {
@@ -254,6 +367,54 @@
             },
             "minItems": 2,
             "maxItems": 2
+          }
+        }
+      },
+      "Formular": {
+        "required": [
+          "_id",
+          "pharmacyId"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "auto-generated": true
+          },
+          "pharmacyId": {
+            "type": "string"
+          },
+          "date": {
+            "type": "date"
+          },
+          "openQuestion": {
+            "type":"object",
+            "properties":{
+              "libelle" : {
+                "type": "string"
+              },
+              "answer" : {
+                "type" : "string"
+              }
+            }
+          },
+          "qcmQuestion": {
+            "type":"object",
+            "properties":{
+              "libelle" : {
+                "type": "string"
+              },
+              "qcmResponse" : {
+                "type" : "object",
+                "properties": {
+                  "choix" : {
+                    "type": "string"
+                  },
+                  "selected" :{
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
           }
         }
       }
