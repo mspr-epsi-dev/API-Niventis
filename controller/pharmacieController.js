@@ -16,29 +16,51 @@ module.exports = {
     savePharmacie : (body, res) => {
         
         try {
-            
-            var pharmacie = new Pharmacie(body);
-        
-            pharmacie.save((error, doc) => {
-        
-                if(error){
-        
-                    if(error.name){
 
-                        var msg = httpMessage["400"].missformedRessource;
-                        res.status(400, contentTypeJson).send({message :msg});
-                        
-                    }
-        
-                }else{
-
-                    var msg = httpMessage["200"].saveSuccess;
-                    res.status(200, contentTypeJson).send({message : msg, doc});
-        
+            var bodyCorrespondingToSchema = true;
+                                
+            //check if the properties of the json object sent in req.body correspond to the entityMockup
+            //if not : bodyCorrespondingToSchema => false
+            for(var property in body){
+                
+                if( !pharmacieMockup.hasOwnProperty(property) ){
+                    bodyCorrespondingToSchema = false;
                 }
-        
-            });
+                
+            }
 
+            //if the resource sent if misfformed, status code 400 sent
+            if(bodyCorrespondingToSchema == false){
+                
+                var msg = httpMessage["400"].missformedRessource;
+                res.status(400, contentTypeJson).send({ message :msg });
+
+            }else{
+                
+                var pharmacie = new Pharmacie(body);
+        
+                pharmacie.save((error, doc) => {
+            
+                    if(error){
+            
+                        if(error.name){
+
+                            var msg = httpMessage["400"].missformedRessource;
+                            res.status(400, contentTypeJson).send({message :msg});
+                            
+                        }
+            
+                    }else{
+
+                        var msg = httpMessage["200"].saveSuccess;
+                        res.status(200, contentTypeJson).send({message : msg, doc});
+
+                    }
+            
+                });
+
+            }
+            
         } catch (error) {
             
             var msg = httpMessage["500"].somethingWrong;
