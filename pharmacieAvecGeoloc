@@ -49,10 +49,7 @@
 		    "productPrice": 32
 		}
 	    ],
-	    "pharmacieCoordinates": {
-		"type": "Point",
-		"gpsCoordinates": [3.875539, 43.606808]
-	    }
+		"gpsCoordinates": [3.876162, 43.606549]
 
 	}
 
@@ -79,10 +76,7 @@
 		    "productPrice": 32
 		}
 	    ],
-	    "pharmacieCoordinates": {
-		"type": "Point",
-		"gpsCoordinates": [3.875539, 43.606808]
-	    }
+		"gpsCoordinates": [3.8765399999999772, 43.6059]
 
 	}
 
@@ -109,10 +103,7 @@
 		    "productPrice": 32
 		}
 	    ],
-	    "pharmacieCoordinates": {
-		"type": "Point",
-		"gpsCoordinates": [3.875539, 43.606808]
-	    }
+		"gpsCoordinates": [2.3639584, 48.867542]
 
 	}
 
@@ -139,10 +130,7 @@
 		    "productPrice": 32
 		}
 	    ],
-	    "pharmacieCoordinates": {
-		"type": "Point",
-		"gpsCoordinates": [3.875539, 43.606808]
-	    }
+		"gpsCoordinates": [1.4464556, 43.6049263]
 
 	}
 
@@ -169,10 +157,7 @@
 		    "productPrice": 32
 		}
 	    ],
-	    "pharmacieCoordinates": {
-		"type": "Point",
-		"gpsCoordinates": [3.875539, 43.606808]
-	    }
+		"gpsCoordinates": [5.407429999999977, 43.3043]
 
 	}
 ]
