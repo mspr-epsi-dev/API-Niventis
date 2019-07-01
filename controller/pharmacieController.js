@@ -307,11 +307,8 @@ module.exports = {
 
                 request.get(url, (req, resp) => {
 
-                    
                     var parsedResponse = JSON.parse(resp.body);                    
-                    var pharmaciesFounded = [];
-                    var cleanedPharmacies = [];
-                    
+                    var pharmaciesFounded = [];                   
                     
                     parsedResponse.results.forEach(pharmacyDetails => {
 
@@ -321,13 +318,11 @@ module.exports = {
 
                             var pharmacyFounded = {
                                 name : pharmacyDetails.title,
-                                address : newAddress
+                                address : newAddress,
+                                distance : pharmacyDetails.distance
                             }
 
                         }
-
-
-                        console.log(pharmacyFounded);
 
                         pharmaciesFounded.push(pharmacyFounded);
 

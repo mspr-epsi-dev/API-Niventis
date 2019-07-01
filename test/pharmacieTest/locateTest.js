@@ -40,16 +40,8 @@ describe("location of pharmacies around", () => {
                     
                     res.should.have.status(200);
                     res.body.should.be.a('array');
-                    res.body[0].should.have.property('adress');
-                    res.body[0].should.have.property('trainingNeed');
-                    res.body[0].should.have.property('productBought');
-                    res.body[0].productBought[0].should.have.property('productName');
-                    res.body[0].productBought[0].should.have.property('quantityBoughtPerMonth');
-                    res.body[0].productBought[0].should.have.property('productPrice');
-                    res.body[0].should.have.property('gpsCoordinates');
-                    res.body[0].gpsCoordinates.should.have.length(2);
-                    res.body[0].gpsCoordinates[0].should.be.a('number');
-                    res.body[0].gpsCoordinates[1].should.be.a('number');
+                    res.body[0].should.have.property('address');
+                    res.body[0].should.have.property('name');
     
                     done();
 
@@ -82,32 +74,6 @@ describe("location of pharmacies around", () => {
         
 
     });
-
-    it('404 no pharmacie around', (done) => {
-
-        chai.request(app)
-        .get(routes.baseUrl + routes.localisation +"?long=-9&latt=9&perim=1")
-        .end((err, res,  body) => {
-
-            if(err){
-
-                done(err);
-
-            }else{
-
-                res.should.have.status(404);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message').eql(httpMessage["404"].noPharmacieAround);
-
-                done();
-
-            }
-            
-        });
-        
-
-    });
-
 
     it('400 missing query params', (done) => {
 
