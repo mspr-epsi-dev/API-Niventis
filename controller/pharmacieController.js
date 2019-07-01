@@ -1,6 +1,10 @@
 const Pharmacie = require('../models/pharmacieModel/pharmacieModel');
 const httpMessage = require('../init/httpMessages');
-const pharmacieMockup = require('../test/pharmacieTest/pharmacieMockup.json')
+const pharmacieMockup = require('../test/pharmacieTest/pharmacieMockup.json');
+const init = require("../init/init");
+const request = require('request');
+const util = require('./util');
+
 const contentTypeJson = {"Content-Type": "application/json"};
 
 
@@ -289,54 +293,52 @@ module.exports = {
      */
     locatePharmacie : (long, latt, perimeter, res) => {         
 
-        try {
-            
+        try {            
+    
             //verify if query params are provided
-            if( parseInt(long) && parseInt(latt) ) {
+            if( long && latt ) {
 
-                longittude = parseInt(long);
-                lattitude = parseInt(latt);
-                maxDistance = parseInt(perimeter);
+                var hereApiUri = init.hereApiUri;
+                var hereApiAppId = init.hereApiAppId;
+                var hereApiAppCode = init.hereApiAppCode;
+                var researchParam = latt + "," + long + ";r=" + perimeter;
 
-                try {
+                var url = hereApiUri + researchParam + "&app_id="+ hereApiAppId + "&app_code=" + hereApiAppCode
 
-                    Pharmacie.aggregate([{
+                request.get(url, (req, resp) => {
 
-                        "$geoNear": {
-                            "near": [longittude,lattitude],
-                            "distanceField": "distance",
-                            "maxDistance": maxDistance,
-                            "query": { }
-                        }
-
-                    }], (error, doc) =>{
-
-                        if(error){
-
-                            var msg = httpMessage["500"].somethingWrong;
-                            res.status(500, contentTypeJson).send( { message : msg } );
-                            console.log({error:{msg: error.message, stack: error.stack}});  
-
-                        } else if (doc.length < 1) {
-                            
-                            var msg = httpMessage["404"].noPharmacieAround;
-                            res.status(404, contentTypeJson).send( { message :msg, doc } );
-                            
-                        } else if (doc.length > 0) {
-
-                            
-                            res.status(200, contentTypeJson).send( doc );
-
-                        }
-
-                    })
-
-                } catch (error) {
                     
-                    res.status(500, contentTypeJson).send( { message : msg } );
-                }
-                
-            //if query params are not provided correctly, an error is sent back
+                    var parsedResponse = JSON.parse(resp.body);                    
+                    var pharmaciesFounded = [];
+                    var cleanedPharmacies = [];
+                    
+                    
+                    parsedResponse.results.forEach(pharmacyDetails => {
+
+                        if(pharmacyDetails.vicinity !== undefined){
+
+                            var newAddress = pharmacyDetails.vicinity.replace('<br/>', ' ');
+
+                            var pharmacyFounded = {
+                                name : pharmacyDetails.title,
+                                address : newAddress
+                            }
+
+                        }
+
+
+                        console.log(pharmacyFounded);
+
+                        pharmaciesFounded.push(pharmacyFounded);
+
+                    });
+
+                    pharmaciesFounded.shift();
+                    
+                    res.send(pharmaciesFounded);
+                    
+                });
+
             } else {
 
                 var msg = httpMessage["400"].incorrectQueryParam;
